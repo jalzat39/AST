@@ -38,10 +38,14 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.post('/save', passport.authenticate('local-save', {
-    successRedirect: '/gps',
+    successRedirect: '/',
     failureRedirect: '/gps',
     failureFlash: true
 }));
+
+router.get('/city', isAuthenticated, (req, res, next) => {
+    res.render('ciudad');
+});
 
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
