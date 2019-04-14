@@ -47,6 +47,10 @@ router.get('/city', isAuthenticated, (req, res, next) => {
     res.render('ciudad');
 });
 
+router.get('/upload', isAuthenticated, (req, res, next) => {
+    res.render('uploading');
+});
+
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
