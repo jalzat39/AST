@@ -5,6 +5,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 
 // initializations
 const app = express();
@@ -28,6 +29,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileUpload());
 
 app.use((req, res, next) => {
     app.locals.signinMessage = req.flash('signinMessage');

@@ -51,6 +51,15 @@ router.get('/upload', isAuthenticated, (req, res, next) => {
     res.render('uploading');
 });
 
+router.post('/upl', isAuthenticated,(req,res) => {
+    let EDFile = req.files.file
+    EDFile.mv(`./files/${EDFile.name}`,err => {
+        if(err) return res.status(500).send({ message : err })
+
+        return res.status(200).send({ message : 'File upload' })
+    })
+});
+
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
