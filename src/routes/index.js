@@ -51,12 +51,25 @@ router.get('/upload', isAuthenticated, (req, res, next) => {
     res.render('uploading');
 });
 
+router.get('/uploadO', isAuthenticated, (req, res, next) => {
+    res.render('uploadingO');
+});
+
 router.post('/upl', isAuthenticated,(req,res) => {
     let EDFile = req.files.file
     EDFile.mv(`./files/${EDFile.name}`,err => {
         if(err) return res.status(500).send({ message : err })
 
-        return res.status(200).send({ message : 'File upload' })
+        return res.status(200).send({ message : 'File uploaded, sending to Data Center ssh port 2220' })
+    })
+});
+
+router.post('/uplO', isAuthenticated,(req,res) => {
+    let EDFile = req.files.file
+    EDFile.mv(`./files/${EDFile.name}`,err => {
+        if(err) return res.status(500).send({ message : err })
+
+        return res.status(200).send({ message : 'File uploaded, sending to analyze' })
     })
 });
 

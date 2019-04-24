@@ -32,11 +32,28 @@
         </div>
         </nav>
 
-<div class="container">
-    <%if (signinMessage.length > 0) {%>
-        <div class="alert alert-danger"><%= signinMessage %></div>
-    <% } %>
-    <%if (signupMessage.length > 0) {%>
-        <div class="alert alert-danger"><%= signupMessage %></div>
-    <% } %>
-</div>
+  <div class="container">
+      <%if (signinMessage.length > 0) {%>
+          <div class="alert alert-danger"><%= signinMessage %></div>
+      <% } %>
+      <%if (signupMessage.length > 0) {%>
+          <div class="alert alert-danger"><%= signupMessage %></div>
+      <% } %>
+  </div>
+
+  <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Choose a document</h3>
+                </div>
+                <div class="card-body">
+                        <form action='/uplO' method="POST" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <input type="submit" value="Output" class="btn btn-primary btn-block mt-4">
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
