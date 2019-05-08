@@ -65,30 +65,34 @@
     </div>
 
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
-        <div class="col-md-4">
-            <div class="col-md-4">
-                <h1 class="text-center">Usuarios</h1>
-    <container
-      .table-responsive
-        table.table.table-border.table-hover(style="width:65%")
-            thead.text-center
-              tr.info
-                th #
-                th Username
-                th age
-                th Email
-                th Acción
-              
-            tbody
-              -var count = 1
-              for i in usuarios 
-                tr
-                  td= count++
-                  td= i.username
-                  td= i.age
-                  td= i.email
-                  td.text-center
-input(type ="button" class="btn btn-danger" value="Eliminar Usuario" onclick= "location.href='/delete?username=#{i.username}';")
+        <form action="/savePl" method="POST">
+            <div class="form-group center">
+                <input type="planta" name="planta" placeholder="Planta" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="ciudad" name="ciudad" placeholder="ciudad" class="form-control">
+            </div>   
+            <div class="form-group">
+                <input type="precioFogon" name="precioFogon" placeholder="PrecioFogon" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="precioTransporte" name="precioTransporte" placeholder="PrecioTransporte" class="form-control">
+            </div>      
+            <div class="form-group">
+                <input type="utilidadPlanta" name="utilidadPlanta" placeholder="UtilidadPlanta" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="materiales" name="materiales" placeholder="Materiales" class="form-control">
+            </div>   
+            <div class="form-group">
+                <input type="distribuidora" name="distribuidora" placeholder="Distribuidora" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="nit" name="nit" placeholder="Nit" class="form-control">
+            </div>             
+            <button type="submit" class="btn btn-primary btn-block mt-4">
+                Guardar Planta
+            </button>
     </div>
  
     <form class="form-inline justify-content-center" >

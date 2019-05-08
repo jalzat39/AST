@@ -55,6 +55,10 @@ router.get('/uploadO', isAuthenticated, (req, res, next) => {
     res.render('uploadingO');
 });
 
+router.get('/savePl', isAuthenticated, (req, res, next) => {
+    res.render('uploading');
+});
+
 router.post('/upl', isAuthenticated,(req,res) => {
     let EDFile = req.files.file
     EDFile.mv(`./files/${EDFile.name}`,err => {
