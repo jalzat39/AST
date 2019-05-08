@@ -65,7 +65,30 @@
     </div>
 
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
-        Tabla de registro
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <h1 class="text-center">Usuarios</h1>
+    <container
+      .table-responsive
+        table.table.table-border.table-hover(style="width:65%")
+            thead.text-center
+              tr.info
+                th #
+                th Username
+                th age
+                th Email
+                th Acción
+              
+            tbody
+              -var count = 1
+              for i in usuarios 
+                tr
+                  td= count++
+                  td= i.username
+                  td= i.age
+                  td= i.email
+                  td.text-center
+input(type ="button" class="btn btn-danger" value="Eliminar Usuario" onclick= "location.href='/delete?username=#{i.username}';")
     </div>
  
     <form class="form-inline justify-content-center" >
