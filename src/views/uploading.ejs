@@ -31,29 +31,57 @@
             </ul>
         </div>
         </nav>
+</head>
 
-  <div class="container">
-      <%if (signinMessage.length > 0) {%>
-          <div class="alert alert-danger"><%= signinMessage %></div>
-      <% } %>
-      <%if (signupMessage.length > 0) {%>
-          <div class="alert alert-danger"><%= signupMessage %></div>
-      <% } %>
-  </div>
+    <div class="container">
+        <%if (signinMessage.length > 0) {%>
+            <div class="alert alert-danger"><%= signinMessage %></div>
+        <% } %>
+        <%if (signupMessage.length > 0) {%>
+            <div class="alert alert-danger"><%= signupMessage %></div>
+        <% } %>
+    </div>
 
-  <div class="row">
+<body>
+ 
+    <h3 class="display-6 text-center">Con cual de las dos opciones deseas empezar el proceso del modelo, o descargar plantilla para subir el archivo</h3>
+    <a href="/descargar/plantilla.xlsx" class="text-center">Descargar</a>
+
+    <div id="elemento" class="row" style="display: none;">
         <div class="col-md-4 offset-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h3>Choose a document</h3>
                 </div>
-                <div class="card-body">
+                    <div class="card-body">
                         <form action='/upl' method="POST" enctype="multipart/form-data">
                             <input type="file" name="file">
-                            <input type="submit" value="Input" class="btn btn-primary btn-block mt-4">
+                            <input type="submit" value="Subir" class="btn btn-primary btn-block mt-4">
                         </form>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
+
+    <div id="elementoB" class="row display-7 text-center" style="display: none;">
+        Tabla de registro
+    </div>
+ 
+    <form class="form-inline justify-content-center" >
+        <input type="button" class="btn btn-primary mt-4" value="Llenar Tabla" onclick="ocultar()">
+        <input type="button" class="btn btn-primary mt-4" value="Subir Archivo" onclick="mostrar()">
+    </form>
+    <script>
+        function ocultar() {
+            document.getElementById("elemento").style.display = "none";
+            document.getElementById("elementoB").style.display = "block";
+        }
+        function mostrar() {
+            document.getElementById("elemento").style.display = "block";
+            document.getElementById("elementoB").style.display = "none";
+        }
+    </script>
+    
+</body>
+
 </html>

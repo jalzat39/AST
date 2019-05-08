@@ -60,7 +60,7 @@ router.post('/upl', isAuthenticated,(req,res) => {
     EDFile.mv(`./files/${EDFile.name}`,err => {
         if(err) return res.status(500).send({ message : err })
 
-        return res.status(200).send({ message : 'File uploaded, sending to Data Center ssh port 2220' })
+        return res.status(200).render('uploading')
     })
 });
 
@@ -69,8 +69,19 @@ router.post('/uplO', isAuthenticated,(req,res) => {
     EDFile.mv(`./files/${EDFile.name}`,err => {
         if(err) return res.status(500).send({ message : err })
 
-        return res.status(200).send({ message : 'File uploaded, sending to analyze' })
+        return res.status(200).render('uploadingO')
     })
+});
+
+router.get('/descargar/:id',function(req,res){
+    res.download('./files/'+req.params.id,req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log("Listo")
+        } 
+    });
 });
 
 function isAuthenticated(req, res, next) {
