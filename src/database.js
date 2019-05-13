@@ -8,11 +8,15 @@ mongoose.connect(mongodb.URI, {
   .then(db => console.log('DB is connected'))
   .catch(err => console.log(err));*/
   
+const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
 
+mongoose.connect("mongodb+srv://mono:mono123@cluster0-qfesm.mongodb.net/test?retryWrites=true", { useNewUrlParser: true })
+      .then(db => console.log('db connected')).catch(err => console.log(err));
+
 // replace the uri string with your connection string.
-const uri = "mongodb+srv://mongodb+srv://mono:mono123@cluster0-qfesm.mongodb.net/test?retryWrites=true"
-MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
+/*const uri = "mongodb+srv://mono:mono123@cluster0-qfesm.mongodb.net/test?retryWrites=true"
+mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
   if(err) {
     console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
   } 
@@ -25,4 +29,4 @@ MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
    // perform actions on the collection object
     client.close();
     }
-});
+});*/
