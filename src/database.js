@@ -11,11 +11,11 @@ mongoose.connect(mongodb.URI, {
 const MongoClient = require('mongodb').MongoClient;
 
 // replace the uri string with your connection string.
-const uri = "mongodb+srv://admin:84f5EG0fILLCIydq@cluster0-youmh.mongodb.net/test?retryWrites=true"
+const uri = "mongodb+srv://mongodb+srv://mono:mono123@cluster0-qfesm.mongodb.net/test?retryWrites=true"
 MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
   if(err) {
     console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-  }
+  } 
     else {
       console.log('Connected...');
       const db = client.db("test").collection("devices", function (err, collection) {
