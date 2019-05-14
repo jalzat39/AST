@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>AST</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/gps">Map</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,13 +44,75 @@
         <div class="col-md-4 offset-md-4">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Choose a document</h3>
+                    <h3>Elija el documento que desea analizar</h3>
                 </div>
                 <div class="card-body">
                         <form action='/uplO' method="POST" enctype="multipart/form-data">
                             <input type="file" name="file">
-                            <input type="submit" value="Output" class="btn btn-primary btn-block mt-4">
                         </form>
+                </div>
+                <form class="form-inline justify-content-center" >
+                    <input type="button" class="btn btn-primary mt-4" value="Analizar" onclick="charts()">
+                </form>
+                </div>
+                <div>
+                        <style> /* set the CSS */
+
+                                .bar { fill: steelblue; }
+                                
+                        </style>
+                    <script src="https://d3js.org/d3.v5.js"> import {scaleLinear} from "d3-scale";</script>
+                    <h4 id="emisiones" class="row display-7 text-center" style="display: none;">Emisiones</h4>
+                    <svg width="600" height="600"></svg>
+                    <rect></rect>
+                    <script>
+                        function charts(){
+                            document.getElementById("emisiones").style.display = "block";
+                            var svg = d3.select("svg"),
+                            margin = 200,
+                            width = svg.attr("width") - margin,
+                            height = svg.attr("height") - margin;
+                            
+                            var g = svg.append("g")
+                            .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+                            var dataX = [1, 2, 3, 4],
+                            dataY = [3000, 4000, 1000, 500];
+
+                            var xscale = d3.scaleLinear()
+                            .domain([0, d3.max(dataX)])
+                            .range([0, width - 100]);                                
+                            
+                            var yscale = d3.scaleLinear()
+                            .domain([0, d3.max(dataY)])
+                            .range([height/2, 0]);
+
+                            var x_axis = d3.axisBottom()
+                            .scale(xscale);
+
+                            var y_axis = d3.axisLeft()
+                                    .scale(yscale);
+
+                                svg.append("g")
+                                .attr("transform", "translate(50, 10)")
+                                .call(y_axis);
+
+                            var xAxisTranslate = height/2 + 10;
+
+                                svg.append("g")
+                                .attr("transform", "translate(50, " + xAxisTranslate  +")")
+                                .call(x_axis)                    
+                            g.selectAll(".bar")
+                            .data(data)
+                            .enter().append("rect")
+                            .attr("class", "bar")
+                            attr("x", function(d) { return xScale(d.dataX); })
+                            .attr("y", function(d) { return yScale(d.dataY); })
+                            .attr("width", xScale.bandwidth())
+                            .attr("height", function(d) { return height - yScale(d.dataY); }); 
+   
+                        } 
+                    </script>
                 </div>
             </div>
         </div>
