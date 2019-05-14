@@ -47,7 +47,6 @@
     <h3 class="display-6 text-center">Con cual de las dos opciones deseas empezar el proceso del modelo, o descargar plantilla para subir el archivo</h3>
     <a href="/descargar/plantilla.xlsx" >Descargar</a>
 
-
     <div id="elemento" class="row" style="display: none;">
         <div class="col-md-4 offset-md-4">
             <div class="card">
@@ -65,37 +64,156 @@
     </div>
 
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
-        <form action="/savePl" method="POST">
+        <form action="/agregarCabecera" method="POST">
             <div class="form-group center">
-                <input type="planta" name="planta" placeholder="Planta" class="form-control">
+                <input type="emisiones" name="emisiones" placeholder="Emisiones tt3" class="form-control">
             </div>
             <div class="form-group">
-                <input type="ciudad" name="ciudad" placeholder="ciudad" class="form-control">
+                <input type="periodos" name="periodos" placeholder="Numero de Periodos" class="form-control">
             </div>   
             <div class="form-group">
-                <input type="precioFogon" name="precioFogon" placeholder="PrecioFogon" class="form-control">
+                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
             </div>
             <div class="form-group">
-                <input type="precioTransporte" name="precioTransporte" placeholder="PrecioTransporte" class="form-control">
+                <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
             </div>      
             <div class="form-group">
-                <input type="utilidadPlanta" name="utilidadPlanta" placeholder="UtilidadPlanta" class="form-control">
+                <input type="moliendas" name="moliendas" placeholder="Numero de Moliendas" class="form-control">
             </div>
             <div class="form-group">
-                <input type="materiales" name="materiales" placeholder="Materiales" class="form-control">
-            </div>   
-            <div class="form-group">
-                <input type="distribuidora" name="distribuidora" placeholder="Distribuidora" class="form-control">
+                <input type="capital" name="capital" placeholder="Costo del Capital" class="form-control">
             </div>
-            <div class="form-group">
-                <input type="nit" name="nit" placeholder="Nit" class="form-control">
-            </div>             
             <button type="submit" class="btn btn-primary btn-block mt-4">
-                Guardar Planta
+                    Guardar Planta
             </button>
+        </form>
+            <h1>Demanda</h1>
+               <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/agregar" method="POST">
+                                        <div class="form-group">
+                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="demanda1" placeholder="Inserte el Primer Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="demanda2" placeholder="Inserte el Segundo Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="demanda3" placeholder="Inserte el Tercer Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="demanda4" placeholder="Inserte el Cuarto Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="demanda5" placeholder="Inserte el Quinto Valor" class="form-control">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Agregar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Nombre</th>
+                                        <th>Valor</th>
+                                        <th>Valor1</th>
+                                        <th>Valor2</th>
+                                        <th>Valor3</th>
+                                        <th>Valor4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <% for (var i = 0; i < demanda.length; i++){ %>
+                                            <tr>
+                                                <td><%= i + 1  %></td>
+                                                <td><%= demanda[i].nombre %></td>
+                                                <td><%= demanda[i].demanda1 %></td>
+                                                <td><%= demanda[i].demanda2 %></td>
+                                                <td><%= demanda[i].demanda3 %></td>
+                                                <td><%= demanda[i].demanda4 %></td>
+                                                <td><%= demanda[i].demanda5 %></td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+               </div>
+               <h1>Ventas</h1>
+               <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/agregarVenta" method="POST">
+                                        <div class="form-group">
+                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="venta1" placeholder="Inserte el Primer Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="venta2" placeholder="Inserte el Segundo Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="venta3" placeholder="Inserte el Tercer Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="venta4" placeholder="Inserte el Cuarto Valor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="venta5" placeholder="Inserte el Quinto Valor" class="form-control">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Agregar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Nombre</th>
+                                        <th>Valor</th>
+                                        <th>Valor1</th>
+                                        <th>Valor2</th>
+                                        <th>Valor3</th>
+                                        <th>Valor4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <% for (var i = 0; i < venta.length; i++){ %>
+                                            <tr>
+                                                <td><%= i + 1  %></td>
+                                                <td><%= venta[i].nombre %></td>
+                                                <td><%= venta[i].venta1 %></td>
+                                                <td><%= venta[i].venta2 %></td>
+                                                <td><%= venta[i].venta3 %></td>
+                                                <td><%= venta[i].venta4 %></td>
+                                                <td><%= venta[i].venta5 %></td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+               </div>
     </div>
  
-    <form class="form-inline justify-content-center" >
+    <form class="form-inline col-md-4 col-md-offset-4" >
         <input type="button" class="btn btn-primary mt-4" value="Llenar Tabla" onclick="ocultar()">
         <input type="button" class="btn btn-primary mt-4" value="Subir Archivo" onclick="mostrar()">
     </form>

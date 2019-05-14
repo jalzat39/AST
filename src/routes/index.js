@@ -2,6 +2,8 @@ const router = require('express').Router();
 const passport = require('passport');
 
 require('../index');
+const Demanda = require('../models/demanda');
+const Venta = require('../models/venta');
 
 router.get('/', (req, res, next) => {
     res.render('index');
@@ -47,8 +49,13 @@ router.get('/city', isAuthenticated, (req, res, next) => {
     res.render('ciudad');
 });
 
-router.get('/upload', isAuthenticated, (req, res, next) => {
-    res.render('uploading');
+router.get('/upload', isAuthenticated, async (req, res, next) => {
+    const demanda = await Demanda.find();
+    const venta = await Venta.find();
+    res.render('uploading', {
+        demanda,
+        venta
+    });
 });
 
 router.get('/uploadO', isAuthenticated, (req, res, next) => {
@@ -66,6 +73,24 @@ router.post('/upl', isAuthenticated,(req,res) => {
 
         return res.status(200).render('uploading')
     })
+});
+
+router.post('/agregar',isAuthenticated, async (req,res) => {
+    const demanda = new Demanda(req.body);
+    await demanda.save();
+    console.log(demanda);
+    res.redirect('/upload');
+});
+
+router.post('/agregarVenta',isAuthenticated, async (req,res) => {
+    const venta = new Venta(req.body);
+    await venta.save();
+    console.log(venta);
+    res.redirect('/upload');
+});
+
+router.post('/agregarCabecera',isAuthenticated, async (req,res) => {
+    res.redirect('/upload');
 });
 
 router.post('/uplO', isAuthenticated,(req,res) => {
