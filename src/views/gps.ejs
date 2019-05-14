@@ -82,7 +82,7 @@
                         var myLatLng = { lat: pos.lat, lng: pos.lng };
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: myLatLng,
-                            zoom: 19,
+                            zoom: 5,
                             zoomControl: false,
                             scaleControl: false,
                             gestureHandling: 'none',
@@ -131,5 +131,46 @@
                     </button>
                 </div>
         </form>
+        <h1>Ciudades</h1>
+               <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/agregarCiudad" method="POST">
+                                        <div class="form-group">
+                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Agregar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Nombre</th>
+                                        <th>latitud</th>
+                                        <th>longitud</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <% for (var i = 0; i < ciudad.length; i++){ %>
+                                            <tr>
+                                                <td><%= i + 1  %></td>
+                                                <td><%= ciudad[i].nombre %></td>
+                                                <td><%= ciudad[i].latitud %></td>
+                                                <td><%= ciudad[i].longitud %></td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+               </div>
     </body>
 </html>
