@@ -18,7 +18,11 @@ app.set('views', path.join(__dirname, 'views'))
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
+
 // middlewares
+app.use('/images', express.static('images'));
+
+app.use( express.static( "public" ) );
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
@@ -41,7 +45,10 @@ app.use((req, res, next) => {
 });
 
 // routes
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
+
 
 // Starting the server
 app.listen(app.get('port'), () => {
