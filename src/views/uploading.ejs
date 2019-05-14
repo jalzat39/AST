@@ -62,32 +62,38 @@
                 </div>
             </div>
     </div>
-
+    <h1>Constantes de Entrada</h1>
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
         <form action="/agregarCabecera" method="POST">
             <div class="form-group center">
-                <input type="emisiones" name="emisiones" placeholder="Emisiones tt3" class="form-control">
+                <input type="emisiones" name="emisiones" placeholder="Emisiones del Transporte" class="form-control">
             </div>
             <div class="form-group">
-                <input type="periodos" name="periodos" placeholder="Numero de Periodos" class="form-control">
+                <input type="costoTransporte" name="costoTransporte" placeholder="Costo del Transporte" class="form-control">
             </div>   
             <div class="form-group">
-                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
+                <input type="capital" name="capital" placeholder="Capital de la Cadena de Suministro" class="form-control">
             </div>
             <div class="form-group">
-                <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
+                <input type="red" name="red" placeholder="Estructura de la Red" class="form-control">
             </div>      
+            <div class="form-group">
+                <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
+            </div>
             <div class="form-group">
                 <input type="moliendas" name="moliendas" placeholder="Numero de Moliendas" class="form-control">
             </div>
             <div class="form-group">
-                <input type="capital" name="capital" placeholder="Costo del Capital" class="form-control">
+                <input type="clientes" name="clientes" placeholder="Numero de Clientess" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="planeacion" name="planeacion" placeholder="Numero de Periodos de Planeacion" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary btn-block mt-4">
                     Guardar Planta
             </button>
         </form>
-            <h1>Demanda</h1>
+            <h1>Proyectos de reconversión para cada horno en cada planta</h1>
                <div class="container">
                     <div class="row">
                         <div class="col-md-3">
