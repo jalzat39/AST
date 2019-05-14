@@ -4,6 +4,7 @@ const passport = require('passport');
 require('../index');
 const Demanda = require('../models/demanda');
 const Venta = require('../models/venta');
+const Ciudad = require('../models/ciudad');
 
 router.get('/', (req, res, next) => {
     res.render('index');
@@ -30,8 +31,11 @@ router.post('/signin', passport.authenticate('local-signin', {
     failureFlash: true
 }));
 
-router.get('/gps', isAuthenticated, (req, res, next) => {
-    res.render('gps');
+router.get('/gps', isAuthenticated, async (req, res, next) => {
+    const ciudad = await Ciudad.find();
+    res.render('gps',{
+        ciudad
+    });
 });
 
 router.get('/logout', (req, res, next) => {
@@ -89,7 +93,26 @@ router.post('/agregarVenta',isAuthenticated, async (req,res) => {
     res.redirect('/upload');
 });
 
+router.post('/agregarCiudad',isAuthenticated, async (req,res) => {
+    const ciudad = new Ciudad(req.body);
+    await ciudad.save();
+    console.log(ciudad);
+    res.redirect('/gps');
+});
+
 router.post('/agregarCabecera',isAuthenticated, async (req,res) => {
+    res.redirect('/upload');
+});
+
+router.get('/delete/:id', isAuthenticated, async (req,res) => {
+    const { id } = req.params;
+    await Demanda.remove({ _id: id });
+    res.redirect('/upload');
+});
+
+router.get('/deleteVenta/:id', isAuthenticated, async (req,res) => {
+    const { id } = req.params;
+    await Venta.remove({ _id: id });
     res.redirect('/upload');
 });
 

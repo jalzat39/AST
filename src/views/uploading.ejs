@@ -90,7 +90,7 @@
             <h1>Demanda</h1>
                <div class="container">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
                                     <form action="/agregar" method="POST">
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-5">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -130,6 +130,7 @@
                                         <th>Valor2</th>
                                         <th>Valor3</th>
                                         <th>Valor4</th>
+                                        <th>Operacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,6 +143,9 @@
                                                 <td><%= demanda[i].demanda3 %></td>
                                                 <td><%= demanda[i].demanda4 %></td>
                                                 <td><%= demanda[i].demanda5 %></td>
+                                                <td>
+                                                    <a href="/delete/<%= demanda[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                                </td>
                                             </tr>
                                         <% } %>
                                     </tbody>
@@ -152,7 +156,7 @@
                <h1>Ventas</h1>
                <div class="container">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
                                     <form action="/agregarVenta" method="POST">
@@ -181,7 +185,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-5">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -192,6 +196,7 @@
                                         <th>Valor2</th>
                                         <th>Valor3</th>
                                         <th>Valor4</th>
+                                        <th>Operacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,6 +209,9 @@
                                                 <td><%= venta[i].venta3 %></td>
                                                 <td><%= venta[i].venta4 %></td>
                                                 <td><%= venta[i].venta5 %></td>
+                                                <td>
+                                                    <a href="/deleteVenta/<%= venta[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                                </td>
                                             </tr>
                                         <% } %>
                                     </tbody>
