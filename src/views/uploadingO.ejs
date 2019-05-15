@@ -46,49 +46,343 @@
         <div class="col-md-4 offset-md-4">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Elija el documento que desea analizar</h3>
+                    <h3>Suba el archivo de output para su análisis</h3>
                 </div>
-                <div class="card-body">
-                        <form action='/uplO' method="POST" enctype="multipart/form-data">
-                            <input type="file" name="file">
-                        </form>
-                        
-                </div>
-                <form class="form-inline justify-content-center" >
-                    <input type="button" class="btn btn-primary mt-4" value="Analizar" onclick="charts()">
+                
+                <form action='/upl' method="POST" enctype="multipart/form-data">
+                    <input id="file" type="file" name="file">
+                    <input type="button" value="Analizar" class="btn btn-primary btn-block mt-4" onclick="charts()">
                 </form>
                 </div>
-                <div class="container">
-                    <canvas id="myChart"></canvas>
-                </div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-                <h4 id="emisiones" class="row display-7 text-center" style="display: none;">Emisiones</h4>
-                <svg width="600" height="600"></svg>
-                <csv></csv>
-                <rect></rect>
-                <script>
-                    let myChart = document.getElementById('myChart').getContext('2d');
-
-                    let massPopChart = new Chart(myChart, {
-                        type: 'bar',
-                        data:{
-                            labels:['Proyecto 1', 'Proyecto 2', 'Proyecto 3', 'Proyecto 4'],
-                            datasets:[{
-                                label:'Emisiones',
-                                data:[
-                                    50304,
-                                    23255,
-                                    10034,
-                                    6005
-                                ]
-                            }]
-                        },
-                        options:{}
-                    });
-
-                </script>
-            
             </div>
         </div>
     </div>
+        <div>
+            <canvas id="emisionesCO2" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="emisionesNOX" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="emisionesSOX" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="costosR" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="costosP" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="costosT" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="produccionH" width="700" height="400" margin="0"></canvas>
+        </div>
+        <div>
+            <canvas id="produccionM" width="700" height="400" margin="0"></canvas>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+            <script>
+                function charts(){
+                    let file = document.getElementById('file').value;
+                    if (file != null){
+                        analize()
+                    }      
+                }
+
+                function analize(){
+                    let co2 = document.getElementById('emisionesCO2').getContext('2d');
+                    let nox = document.getElementById('emisionesNOX').getContext('2d');
+                    let sox = document.getElementById('emisionesSOX').getContext('2d');
+                    let costR = document.getElementById('costosR').getContext('2d');
+                    let costP = document.getElementById('costosP').getContext('2d');
+                    let costT = document.getElementById('costosT').getContext('2d');
+                    let prodH = document.getElementById('produccionH').getContext('2d');
+                    let prodM = document.getElementById('produccionM').getContext('2d');
+                    let chartEmisionesCO2 = new Chart(co2, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'CO2',
+                                data:[
+                                    4.30725e+06,
+                                    3.61237e+06,
+                                    3.43035e+06,
+                                    3.50366e+06,
+                                    3.56611e+06
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de CO2 en cada periodo',
+                                fontSize:25
+                            },
+                            legend:{
+                                display:false
+                                
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartEmisionesNOX = new Chart(nox, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'NOX',
+                                data:[
+                                    4341.76,
+                                    4142.51,
+                                    4473.49,
+                                    4592.63,
+                                    4679.36
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de NOX en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartEmisionesSOX = new Chart(sox, {
+                         type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'SOX',
+                                data:[
+                                    2030.39,
+                                    1350.53,
+                                    1469.57,
+                                    1531.7,
+                                    1564.7
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de SOX en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosR = new Chart(costR, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'Dólares',
+                                data:[
+                                    3.47122e+08,
+                                    5.58448e+06,
+                                    1.02e+06,
+                                    0,
+                                    3.19397e-09
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de reconversión en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosP = new Chart(costP, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'Dólares',
+                                data:[
+                                    2.82413e+08,
+                                    2.61034e+08,
+                                    2.70288e+08,
+                                    2.7837e+08,
+                                    2.86167e+08
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de producción en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosT = new Chart(costT, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'Dólares',
+                                data:[
+                                    9.1998e+07,
+                                    1.17012e+08,
+                                    1.10082e+08,
+                                    9.11292e+07,
+                                    9.10051e+07
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de transporte en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartProdH = new Chart(prodH, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'Cantidad',
+                                data:[
+                                    742500.00,
+                                    2443208.46,
+                                    2280000.00,
+                                    1732500.00,
+                                    1732500.00
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Producción en hornos en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartProdM = new Chart(prodM, {
+                        type: 'bar',
+                        data:{
+                            labels:['Periodo 1', 'Periodo 2', 'Periodo 3', 'Periodo 4', 'Periodo 5'],
+                            datasets:[{
+                                label:'Cantidad',
+                                data:[
+                                    974440.00,
+                                    2362486.00,
+                                    2145000.00,
+                                    2145000.00,
+                                    2145000.00
+                                ],
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Producción en las moliendas en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+               }
+        </script>
 </html>

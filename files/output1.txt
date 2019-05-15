@@ -1,0 +1,308 @@
+emsiones de co2 totales:1.90174e+07
+costos de reconversi?n totales:3.53726e+08
+costos de producci?n totales:1.37827e+09
+costos de transporte totales:5.01227e+08
+costos fijos totales:2.49359e+07
+costos de cierre totales1.88496e+06
+costos totales totales:2.26005e+09
+demanda total en ton -periodo 1 : 0.00
+demanda total en ton -periodo 2 : 5283940.00
+demanda total en ton -periodo 3 : 5500571.00
+demanda total en ton -periodo 4 : 5590939.00
+demanda total en ton -periodo 5 : 5685457.00
+demanda total en ton -periodo 6 : 5784330.00
+TOTAL CLINKER ton-periodo 1 : 0.00
+TOTAL CLINKER ton-periodo 2 : 4064569.23
+TOTAL CLINKER ton-periodo 3 : 4231208.46
+TOTAL CLINKER ton-periodo 4 : 4300722.31
+TOTAL CLINKER ton-periodo 5 : 4373428.46
+TOTAL CLINKER ton-periodo 6 : 4449484.62
+TOTAL CEMENTO ton-periodo 1 : 0.00
+TOTAL CEMENTO ton-periodo 2 : 5283940.00
+TOTAL CEMENTO ton-periodo 3 : 5500571.00
+TOTAL CEMENTO ton-periodo 4 : 5590939.00
+TOTAL CEMENTO ton-periodo 5 : 5685457.00
+TOTAL CEMENTO ton-periodo 6 : 5784330.00
+hornos operando -periodo 1 : 0.00
+hornos operando -periodo 2 : 5.00
+hornos operando -periodo 3 : 5.00
+hornos operando -periodo 4 : 4.00
+hornos operando -periodo 5 : 4.00
+hornos operando -periodo 6 : 4.00
+moliendas operando -periodo 1 : 0.00
+moliendas operando -periodo 2 : 5.00
+moliendas operando -periodo 3 : 5.00
+moliendas operando -periodo 4 : 4.00
+moliendas operando -periodo 5 : 4.00
+moliendas operando -periodo 6 : 4.00
+moliendas de mp operando-periodo 1 : 0.00
+moliendas de mp operando-periodo 2 : 5.00
+moliendas de mp operando-periodo 3 : 4.00
+moliendas de mp operando-periodo 4 : 4.00
+moliendas de mp operando-periodo 5 : 4.00
+moliendas de mp operando-periodo 6 : 4.00
+emsiones de co2 por producci?n para el periodo1 : 0
+emsiones de co2 por producci?n para el periodo2 : 4.30725e+06
+emsiones de co2 por producci?n para el periodo3 : 3.61237e+06
+emsiones de co2 por producci?n para el periodo4 : 3.43035e+06
+emsiones de co2 por producci?n para el periodo5 : 3.50366e+06
+emsiones de co2 por producci?n para el periodo6 : 3.56611e+06
+emsiones de nox por producci?n  22229.8
+emsiones de sox por producci?n 7946.89
+emsiones de co2 por tte para el periodo 2 : 100800
+emsiones de co2 por tte para el periodo 3 : 129267
+emsiones de co2 por tte para el periodo 4 : 124387
+emsiones de co2 por tte para el periodo 5 : 101362
+emsiones de co2 por tte para el periodo 6 : 101174
+emsiones de co2 por tte de combustible para el periodo 2 : 8903.96
+emsiones de co2 por tte de combustible para el periodo 3 : 10202.8
+emsiones de co2 por tte de combustible para el periodo 4 : 6851.87
+emsiones de co2 por tte de combustible para el periodo 5 : 7321.85
+emsiones de co2 por tte de combustible para el periodo 6 : 7361.05
+emsiones de nox para el periodo 2 : 4341.76
+emsiones de nox para el periodo 3 : 4142.51
+emsiones de nox para el periodo 4 : 4473.49
+emsiones de nox para el periodo 5 : 4592.63
+emsiones de nox para el periodo 6 : 4679.36
+emsiones de sox para el periodo 2 : 2030.39
+emsiones de sox para el periodo 3 : 1350.53
+emsiones de sox para el periodo 4 : 1469.57
+emsiones de sox para el periodo 5 : 1531.7
+emsiones de sox para el periodo 6 : 1564.7
+costos de reconversi?n por periodo 2 :3.47122e+08
+costos de reconversi?n por periodo 3 :5.58448e+06
+costos de reconversi?n por periodo 4 :1.02e+06
+costos de reconversi?n por periodo 5 :0
+costos de reconversi?n por periodo 6 :3.19397e-09
+costos de producci?n por periodo 2 :2.82413e+08
+costos de producci?n por periodo 3 :2.61034e+08
+costos de producci?n por periodo 4 :2.70288e+08
+costos de producci?n por periodo 5 :2.7837e+08
+costos de producci?n por periodo 6 :2.86167e+08
+costos de transporte por periodo 2 :9.1998e+07
+costos de transporte por periodo 3 :1.17012e+08
+costos de transporte por periodo 4 :1.10082e+08
+costos de transporte por periodo 5 :9.11292e+07
+costos de transporte por periodo 6 :9.10051e+07
+costos fijos por periodo 2 :5.41108e+06
+costos fijos por periodo 3 :5.23768e+06
+costos fijos por periodo 4 :4.76236e+06
+costos fijos por periodo 5 :4.76236e+06
+costos fijos por periodo 6 :4.76236e+06
+costos de cierre por periodo 2 :0
+costos de cierre por periodo 3 :336600
+costos de cierre por periodo 4 :1.54836e+06
+costos de cierre por periodo 5 :0
+costos de cierre por periodo 6 :1.47466e-09
+costos de tte de fuel por periodo 2 :0
+costos de tte de fuel por periodo 3 :0
+costos de tte de fuel por periodo 4 :0
+costos de tte de fuel por periodo 5 :0
+costos de tte de fuel por periodo 6 :0
+la molienda de mp 1 con el proyecto 15 en el periodo 2 :1485000.00
+la molienda de mp 1 con el proyecto 15 en el periodo 3 :4886416.92
+la molienda de mp 1 con el proyecto 15 en el periodo 4 :3547500.00
+la molienda de mp 1 con el proyecto 15 en el periodo 5 :3465000.00
+la molienda de mp 1 con el proyecto 15 en el periodo 6 :3465000.00
+la molienda de mp 2 con el proyecto 6 en el periodo 2 :1608750.00
+la molienda de mp 2 con el proyecto 6 en el periodo 3 :2460000.00
+la molienda de mp 2 con el proyecto 6 en el periodo 4 :1732500.00
+la molienda de mp 2 con el proyecto 6 en el periodo 5 :2000000.00
+la molienda de mp 2 con el proyecto 6 en el periodo 6 :2000000.00
+la molienda de mp 3 con el proyecto 1 en el periodo 2 :2400000.00
+la molienda de mp 3 con el proyecto 6 en el periodo 3 :720000.00
+la molienda de mp 3 con el proyecto 6 en el periodo 4 :2001444.62
+la molienda de mp 3 con el proyecto 6 en el periodo 5 :2000000.00
+la molienda de mp 3 con el proyecto 6 en el periodo 6 :2113969.23
+la molienda de mp 4 con el proyecto 10 en el periodo 6 :0.00
+la molienda de mp 4 con el proyecto 13 en el periodo 2 :1315388.46
+la molienda de mp 5 con el proyecto 1 en el periodo 2 :1320000.00
+la molienda de mp 5 con el proyecto 1 en el periodo 3 :396000.00
+la molienda de mp 5 con el proyecto 1 en el periodo 4 :1320000.00
+la molienda de mp 5 con el proyecto 1 en el periodo 5 :1281856.92
+la molienda de mp 5 con el proyecto 1 en el periodo 6 :1320000.00
+producci?n en el horno 1 con el proyecto 77  en el periodo 2 es: 742500.00
+producci?n en el horno 1 con el proyecto 77  en el periodo 3 es: 2443208.46
+producci?n en el horno 1 con el proyecto 77  en el periodo 4 es: 2280000.00
+producci?n en el horno 1 con el proyecto 77  en el periodo 5 es: 1732500.00
+producci?n en el horno 1 con el proyecto 77  en el periodo 6 es: 1732500.00
+producci?n en el horno 2 con el proyecto 1  en el periodo 2 es: 1162069.23
+producci?n en el horno 2 con el proyecto 1  en el periodo 3 es: 1200000.00
+producci?n en el horno 2 con el proyecto 2  en el periodo 4 es: 0.00
+producci?n en el horno 2 con el proyecto 13  en el periodo 4 es: 360000.00
+producci?n en el horno 2 con el proyecto 13  en el periodo 5 es: 1000000.00
+producci?n en el horno 2 con el proyecto 13  en el periodo 6 es: 1000000.00
+producci?n en el horno 3 con el proyecto 1  en el periodo 2 es: 1200000.00
+producci?n en el horno 3 con el proyecto 15  en el periodo 3 es: 360000.00
+producci?n en el horno 3 con el proyecto 15  en el periodo 4 es: 1000722.31
+producci?n en el horno 3 con el proyecto 15  en el periodo 5 es: 1000000.00
+producci?n en el horno 3 con el proyecto 15  en el periodo 6 es: 1056984.62
+producci?n en el horno 4 con el proyecto 1  en el periodo 2 es: 300000.00
+producci?n en el horno 4 con el proyecto 1  en el periodo 3 es: 0.00
+producci?n en el horno 4 con el proyecto 1  en el periodo 6 es: 0.00
+producci?n en el horno 4 con el proyecto 5  en el periodo 3 es: 30000.00
+producci?n en el horno 4 con el proyecto 6  en el periodo 5 es: 0.00
+producci?n en el horno 5 con el proyecto 1  en el periodo 2 es: 660000.00
+producci?n en el horno 5 con el proyecto 13  en el periodo 3 es: 198000.00
+producci?n en el horno 5 con el proyecto 13  en el periodo 4 es: 660000.00
+producci?n en el horno 5 con el proyecto 13  en el periodo 5 es: 640928.46
+producci?n en el horno 5 con el proyecto 13  en el periodo 6 es: 660000.00
+producci?n en el horno 5 con el proyecto 16  en el periodo 4 es: 0.00
+producci?n en el horno 5 con el proyecto 72  en el periodo 6 es: 0.00
+producci?n en la molienda 1 con el proyecto 14  en el periodo 2 es: 974440.00
+producci?n en la molienda 1 con el proyecto 14  en el periodo 3 es: 2362486.00
+producci?n en la molienda 1 con el proyecto 14  en el periodo 4 es: 2145000.00
+producci?n en la molienda 1 con el proyecto 14  en el periodo 5 es: 2145000.00
+producci?n en la molienda 1 con el proyecto 14  en el periodo 6 es: 2145000.00
+producci?n en la molienda 2 con el proyecto 11  en el periodo 2 es: 1501500.00
+producci?n en la molienda 2 con el proyecto 11  en el periodo 3 es: 1560000.00
+producci?n en la molienda 2 con el proyecto 11  en el periodo 4 es: 1287000.00
+producci?n en la molienda 2 con el proyecto 11  en el periodo 5 es: 1300000.00
+producci?n en la molienda 2 con el proyecto 11  en el periodo 6 es: 1300000.00
+producci?n en la molienda 3 con el proyecto 1  en el periodo 2 es: 1560000.00
+producci?n en la molienda 3 con el proyecto 11  en el periodo 3 es: 468000.00
+producci?n en la molienda 3 con el proyecto 11  en el periodo 4 es: 1300939.00
+producci?n en la molienda 3 con el proyecto 11  en el periodo 5 es: 1300000.00
+producci?n en la molienda 3 con el proyecto 11  en el periodo 6 es: 1374080.00
+producci?n en la molienda 4 con el proyecto 1  en el periodo 2 es: 390000.00
+producci?n en la molienda 4 con el proyecto 1  en el periodo 3 es: 39000.00
+producci?n en la molienda 4 con el proyecto 1  en el periodo 4 es: 0.00
+producci?n en la molienda 4 con el proyecto 1  en el periodo 6 es: 0.00
+producci?n en la molienda 4 con el proyecto 9  en el periodo 5 es: 0.00
+producci?n en la molienda 4 con el proyecto 11  en el periodo 4 es: 0.00
+producci?n en la molienda 4 con el proyecto 11  en el periodo 5 es: 0.00
+producci?n en la molienda 4 con el proyecto 11  en el periodo 6 es: 0.00
+producci?n en la molienda 4 con el proyecto 13  en el periodo 2 es: 0.00
+producci?n en la molienda 4 con el proyecto 13  en el periodo 4 es: 0.00
+producci?n en la molienda 4 con el proyecto 14  en el periodo 4 es: 0.00
+producci?n en la molienda 4 con el proyecto 14  en el periodo 5 es: 0.00
+producci?n en la molienda 4 con el proyecto 14  en el periodo 6 es: 0.00
+producci?n en la molienda 4 con el proyecto 15  en el periodo 5 es: 0.00
+producci?n en la molienda 4 con el proyecto 15  en el periodo 6 es: 0.00
+producci?n en la molienda 5 con el proyecto 9  en el periodo 5 es: 0.00
+producci?n en la molienda 5 con el proyecto 12  en el periodo 2 es: 858000.00
+producci?n en la molienda 5 con el proyecto 12  en el periodo 3 es: 1071085.00
+producci?n en la molienda 5 con el proyecto 12  en el periodo 4 es: 858000.00
+producci?n en la molienda 5 con el proyecto 12  en el periodo 5 es: 940457.00
+producci?n en la molienda 5 con el proyecto 12  en el periodo 6 es: 965250.00
+producci?n en la molienda 5 con el proyecto 13  en el periodo 2 es: 0.00
+producci?n en la molienda 5 con el proyecto 13  en el periodo 4 es: 0.00
+ton despachadas desde la molienda de mp 1 al horno 1  en el periodo 2 es: 1485000.00
+ton despachadas desde la molienda de mp 1 al horno 1  en el periodo 3 es: 4886416.92
+ton despachadas desde la molienda de mp 1 al horno 1  en el periodo 4 es: 3547500.00
+ton despachadas desde la molienda de mp 1 al horno 1  en el periodo 5 es: 3465000.00
+ton despachadas desde la molienda de mp 1 al horno 1  en el periodo 6 es: 3465000.00
+ton despachadas desde la molienda de mp 2 al horno 1  en el periodo 4 es: 1012500.00
+ton despachadas desde la molienda de mp 2 al horno 2  en el periodo 2 es: 1608750.00
+ton despachadas desde la molienda de mp 2 al horno 2  en el periodo 3 es: 2400000.00
+ton despachadas desde la molienda de mp 2 al horno 2  en el periodo 4 es: 720000.00
+ton despachadas desde la molienda de mp 2 al horno 2  en el periodo 5 es: 2000000.00
+ton despachadas desde la molienda de mp 2 al horno 2  en el periodo 6 es: 2000000.00
+ton despachadas desde la molienda de mp 2 al horno 4  en el periodo 3 es: 60000.00
+ton despachadas desde la molienda de mp 3 al horno 3  en el periodo 2 es: 2400000.00
+ton despachadas desde la molienda de mp 3 al horno 3  en el periodo 3 es: 720000.00
+ton despachadas desde la molienda de mp 3 al horno 3  en el periodo 4 es: 2001444.62
+ton despachadas desde la molienda de mp 3 al horno 3  en el periodo 5 es: 2000000.00
+ton despachadas desde la molienda de mp 3 al horno 3  en el periodo 6 es: 2113969.23
+ton despachadas desde la molienda de mp 4 al horno 2  en el periodo 2 es: 715388.46
+ton despachadas desde la molienda de mp 4 al horno 4  en el periodo 2 es: 600000.00
+ton despachadas desde la molienda de mp 5 al horno 5  en el periodo 2 es: 1320000.00
+ton despachadas desde la molienda de mp 5 al horno 5  en el periodo 3 es: 396000.00
+ton despachadas desde la molienda de mp 5 al horno 5  en el periodo 4 es: 1320000.00
+ton despachadas desde la molienda de mp 5 al horno 5  en el periodo 5 es: 1281856.92
+ton despachadas desde la molienda de mp 5 al horno 5  en el periodo 6 es: 1320000.00
+ton despachadas desde el horno 1 a la molienda 1 es:  en el periodo 2 es: 742500.00
+ton despachadas desde el horno 1 a la molienda 1 es:  en el periodo 3 es: 1817296.92
+ton despachadas desde el horno 1 a la molienda 1 es:  en el periodo 4 es: 1650000.00
+ton despachadas desde el horno 1 a la molienda 1 es:  en el periodo 5 es: 1650000.00
+ton despachadas desde el horno 1 a la molienda 1 es:  en el periodo 6 es: 1650000.00
+ton despachadas desde el horno 1 a la molienda 2 es:  en el periodo 4 es: 630000.00
+ton despachadas desde el horno 1 a la molienda 5 es:  en el periodo 3 es: 625911.54
+ton despachadas desde el horno 1 a la molienda 5 es:  en el periodo 5 es: 82500.00
+ton despachadas desde el horno 1 a la molienda 5 es:  en el periodo 6 es: 82500.00
+ton despachadas desde el horno 2 a la molienda 1 es:  en el periodo 2 es: 7069.23
+ton despachadas desde el horno 2 a la molienda 2 es:  en el periodo 2 es: 1155000.00
+ton despachadas desde el horno 2 a la molienda 2 es:  en el periodo 3 es: 1200000.00
+ton despachadas desde el horno 2 a la molienda 2 es:  en el periodo 4 es: 360000.00
+ton despachadas desde el horno 2 a la molienda 2 es:  en el periodo 5 es: 1000000.00
+ton despachadas desde el horno 2 a la molienda 2 es:  en el periodo 6 es: 1000000.00
+ton despachadas desde el horno 3 a la molienda 3 es:  en el periodo 2 es: 1200000.00
+ton despachadas desde el horno 3 a la molienda 3 es:  en el periodo 3 es: 360000.00
+ton despachadas desde el horno 3 a la molienda 3 es:  en el periodo 4 es: 1000722.31
+ton despachadas desde el horno 3 a la molienda 3 es:  en el periodo 5 es: 1000000.00
+ton despachadas desde el horno 3 a la molienda 3 es:  en el periodo 6 es: 1056984.62
+ton despachadas desde el horno 4 a la molienda 4 es:  en el periodo 2 es: 300000.00
+ton despachadas desde el horno 4 a la molienda 4 es:  en el periodo 3 es: 30000.00
+ton despachadas desde el horno 5 a la molienda 5 es:  en el periodo 2 es: 660000.00
+ton despachadas desde el horno 5 a la molienda 5 es:  en el periodo 3 es: 198000.00
+ton despachadas desde el horno 5 a la molienda 5 es:  en el periodo 4 es: 660000.00
+ton despachadas desde el horno 5 a la molienda 5 es:  en el periodo 5 es: 640928.46
+ton despachadas desde el horno 5 a la molienda 5 es:  en el periodo 6 es: 660000.00
+ton despachadas desde la molienda 1 al cliente 2 es:  en el periodo 2 es: 424360.00
+ton despachadas desde la molienda 1 al cliente 2 es:  en el periodo 3 es: 1109283.00
+ton despachadas desde la molienda 1 al cliente 2 es:  en el periodo 4 es: 1164747.00
+ton despachadas desde la molienda 1 al cliente 2 es:  en el periodo 5 es: 1222985.00
+ton despachadas desde la molienda 1 al cliente 2 es:  en el periodo 6 es: 1284134.00
+ton despachadas desde la molienda 1 al cliente 3 es:  en el periodo 2 es: 550080.00
+ton despachadas desde la molienda 1 al cliente 3 es:  en el periodo 3 es: 566582.00
+ton despachadas desde la molienda 1 al cliente 3 es:  en el periodo 4 es: 567716.00
+ton despachadas desde la molienda 1 al cliente 3 es:  en el periodo 5 es: 568851.00
+ton despachadas desde la molienda 1 al cliente 3 es:  en el periodo 6 es: 569989.00
+ton despachadas desde la molienda 1 al cliente 4 es:  en el periodo 3 es: 0.00
+ton despachadas desde la molienda 1 al cliente 4 es:  en el periodo 4 es: 0.00
+ton despachadas desde la molienda 1 al cliente 7 es:  en el periodo 3 es: 255882.00
+ton despachadas desde la molienda 1 al cliente 7 es:  en el periodo 4 es: 256393.00
+ton despachadas desde la molienda 1 al cliente 7 es:  en el periodo 5 es: 256906.00
+ton despachadas desde la molienda 1 al cliente 7 es:  en el periodo 6 es: 257420.00
+ton despachadas desde la molienda 1 al cliente 8 es:  en el periodo 3 es: 217389.00
+ton despachadas desde la molienda 1 al cliente 9 es:  en el periodo 4 es: 156144.00
+ton despachadas desde la molienda 1 al cliente 9 es:  en el periodo 5 es: 96258.00
+ton despachadas desde la molienda 1 al cliente 9 es:  en el periodo 6 es: 33457.00
+ton despachadas desde la molienda 1 al cliente 10 es:  en el periodo 3 es: 213350.00
+ton despachadas desde la molienda 2 al cliente 1 es:  en el periodo 2 es: 230260.00
+ton despachadas desde la molienda 2 al cliente 1 es:  en el periodo 3 es: 1542886.00
+ton despachadas desde la molienda 2 al cliente 1 es:  en el periodo 4 es: 713969.00
+ton despachadas desde la molienda 2 al cliente 1 es:  en el periodo 5 es: 718937.00
+ton despachadas desde la molienda 2 al cliente 1 es:  en el periodo 6 es: 648896.00
+ton despachadas desde la molienda 2 al cliente 2 es:  en el periodo 2 es: 632100.00
+ton despachadas desde la molienda 2 al cliente 7 es:  en el periodo 2 es: 246040.00
+ton despachadas desde la molienda 2 al cliente 8 es:  en el periodo 4 es: 269208.00
+ton despachadas desde la molienda 2 al cliente 8 es:  en el periodo 5 es: 282669.00
+ton despachadas desde la molienda 2 al cliente 8 es:  en el periodo 6 es: 296802.00
+ton despachadas desde la molienda 2 al cliente 9 es:  en el periodo 2 es: 171500.00
+ton despachadas desde la molienda 2 al cliente 9 es:  en el periodo 4 es: 72898.00
+ton despachadas desde la molienda 2 al cliente 9 es:  en el periodo 5 es: 67007.00
+ton despachadas desde la molienda 2 al cliente 9 es:  en el periodo 6 es: 122452.00
+ton despachadas desde la molienda 2 al cliente 10 es:  en el periodo 2 es: 221600.00
+ton despachadas desde la molienda 2 al cliente 10 es:  en el periodo 3 es: 17114.00
+ton despachadas desde la molienda 2 al cliente 10 es:  en el periodo 4 es: 230925.00
+ton despachadas desde la molienda 2 al cliente 10 es:  en el periodo 5 es: 231387.00
+ton despachadas desde la molienda 2 al cliente 10 es:  en el periodo 6 es: 231850.00
+ton despachadas desde la molienda 3 al cliente 1 es:  en el periodo 2 es: 1442100.00
+ton despachadas desde la molienda 3 al cliente 1 es:  en el periodo 3 es: 196368.00
+ton despachadas desde la molienda 3 al cliente 1 es:  en el periodo 4 es: 1028764.00
+ton despachadas desde la molienda 3 al cliente 1 es:  en el periodo 5 es: 1027281.00
+ton despachadas desde la molienda 3 al cliente 1 es:  en el periodo 6 es: 1100815.00
+ton despachadas desde la molienda 3 al cliente 6 es:  en el periodo 2 es: 117900.00
+ton despachadas desde la molienda 3 al cliente 6 es:  en el periodo 3 es: 271632.00
+ton despachadas desde la molienda 3 al cliente 6 es:  en el periodo 4 es: 272175.00
+ton despachadas desde la molienda 3 al cliente 6 es:  en el periodo 5 es: 272719.00
+ton despachadas desde la molienda 3 al cliente 6 es:  en el periodo 6 es: 273265.00
+ton despachadas desde la molienda 4 al cliente 6 es:  en el periodo 2 es: 145820.00
+ton despachadas desde la molienda 4 al cliente 8 es:  en el periodo 2 es: 244180.00
+ton despachadas desde la molienda 4 al cliente 8 es:  en el periodo 3 es: 39000.00
+ton despachadas desde la molienda 5 al cliente 4 es:  en el periodo 2 es: 521820.00
+ton despachadas desde la molienda 5 al cliente 4 es:  en el periodo 3 es: 542693.00
+ton despachadas desde la molienda 5 al cliente 4 es:  en el periodo 4 es: 543778.00
+ton despachadas desde la molienda 5 al cliente 4 es:  en el periodo 5 es: 544866.00
+ton despachadas desde la molienda 5 al cliente 4 es:  en el periodo 6 es: 545955.00
+ton despachadas desde la molienda 5 al cliente 5 es:  en el periodo 2 es: 274100.00
+ton despachadas desde la molienda 5 al cliente 5 es:  en el periodo 3 es: 287805.00
+ton despachadas desde la molienda 5 al cliente 5 es:  en el periodo 4 es: 302195.00
+ton despachadas desde la molienda 5 al cliente 5 es:  en el periodo 5 es: 317305.00
+ton despachadas desde la molienda 5 al cliente 5 es:  en el periodo 6 es: 333170.00
+ton despachadas desde la molienda 5 al cliente 9 es:  en el periodo 2 es: 62080.00
+ton despachadas desde la molienda 5 al cliente 9 es:  en el periodo 3 es: 240587.00
+ton despachadas desde la molienda 5 al cliente 9 es:  en el periodo 4 es: 12027.00
+ton despachadas desde la molienda 5 al cliente 9 es:  en el periodo 5 es: 78286.00
+ton despachadas desde la molienda 5 al cliente 9 es:  en el periodo 6 es: 86125.00
