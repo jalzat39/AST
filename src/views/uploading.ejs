@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>AST</title>
+    
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,10 +44,23 @@
     </div>
 
 <body>
- 
-    <h3 class="display-6 text-center">Con cual de las dos opciones deseas empezar el proceso del modelo, o descargar plantilla para subir el archivo</h3>
-    <a href="/descargar/plantilla.xlsx" >Descargar</a>
-
+        <article id="main-col">
+                <h1> </h1>
+                <p> </p>
+                <h1> </h1>
+              <ul id="services">
+                <li>
+                  <h3>Entrada de datos:</h3>
+                  <p> Existen dos opciones para el ingreso de los datos:</p>
+                  <p> 1) Descargando y completando la siguiente plantilla de excel: </p>
+                  <a href="/descargar/plantilla.xlsx" class="display-6 text-center">Descargar</a>
+                  <p> Al rellenar la plantilla de Excel selecciona la opcion de subir archivo.    </p>
+                  <p> 2) Seleccionando la opcion de llenar tabla, la cual te despliega todos los campos que tienes que rellenar para completar la entrada del modelo.</p>
+                </li>
+              </ul>
+            </article>
+   
+                
     <div id="elemento" class="row" style="display: none;">
         <div class="col-md-4 offset-md-4">
             <div class="card">
@@ -61,6 +75,7 @@
                     </div>
                 </div>
             </div>
+        </br>
     </div>
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
         <form action="/agregarCabecera" method="POST">
@@ -93,6 +108,7 @@
                     Guardar Planta
             </button>
         </form>
+    </br>
             <h1>Proyectos de reconversión para cada horno en cada planta</h1>
                <div class="container">
                     <div class="row">
@@ -174,6 +190,7 @@
                         </div>
                     </div>
                </div>
+            </br>
                <h1>Proyectos de reconversión para cada Molienda en cada planta</h1>
                <div class="container">
                     <div class="row">
@@ -256,6 +273,7 @@
                     </div>
                </div>
             <div>
+                </br>
             <h1>Distancia Horno vs Molienda</h1>
             <div class="container">
                 <table id="table" class="table table-bordered table-hover">
