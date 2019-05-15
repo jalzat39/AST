@@ -124,6 +124,12 @@ router.get('/delete/:id', isAuthenticated, async (req,res) => {
     res.redirect('/upload');
 });
 
+router.get('/deleteMap/:id', isAuthenticated, async (req,res) => {
+    const { id } = req.params;
+    await Ciudad.remove({ _id: id });
+    res.redirect('/gps');
+});
+
 router.get('/agregarDistancia/:imolienda/:idistancia', isAuthenticated, async (req,res) => {
     const hm = new HM(req.params);
     await hm.save()

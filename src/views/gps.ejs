@@ -54,10 +54,9 @@
                                     <form action="/agregarCiudad" method="POST">
                                         <div class="form-group">
                                         <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
-                                            
                                         </div>
                                         <div class="form-group">
-                                        <input type="text" name="tipo" placeholder="Inserte tipo" class="form-control">
+                                            <input type="text" name="opcion" placeholder="Inserte Tipo" class="form-control">
                                         </div>
                                         <div class="form-group">
                                         <input type="text" name="latitud" placeholder="Inserte latitud" class="form-control">
@@ -83,8 +82,9 @@
                                         <th>N°</th>
                                         <th>Nombre</th>
                                         <th>Tipo</th>
-                                        <th>latitud</th>
-                                        <th>longitud</th>
+                                        <th>Latitud</th>
+                                        <th>Longitud</th>
+                                        <th>Operacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,9 +92,12 @@
                                             <tr>
                                                 <td><%= i + 1  %></td>
                                                 <td><%= ciudad[i].nombre %></td>
-                                                <td><%= ciudad[i].tipo %></td>
+                                                <td><%= ciudad[i].opcion %></td>
                                                 <td><%= ciudad[i].latitud %></td>
                                                 <td><%= ciudad[i].longitud %></td>
+                                                <td>
+                                                    <a href="/deleteMap/<%= ciudad[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                                </td>
                                             </tr>
                                         <% } %>
                                     </tbody>
