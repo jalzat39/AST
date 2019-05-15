@@ -2,9 +2,11 @@ const router = require('express').Router();
 const passport = require('passport');
 
 require('../index');
-const Demanda = require('../models/demanda');
-const Venta = require('../models/venta');
+const Horno = require('../models/horno');
+const Molienda = require('../models/molienda');
 const Ciudad = require('../models/ciudad');
+const HM = require('../models/hm');
+const Entrada = require('../models/entrada');
 
 router.get('/', (req, res, next) => {
     res.render('index');
@@ -54,11 +56,13 @@ router.get('/city', isAuthenticated, (req, res, next) => {
 });
 
 router.get('/upload', isAuthenticated, async (req, res, next) => {
-    const demanda = await Demanda.find();
-    const venta = await Venta.find();
+    const horno = await Horno.find();
+    const molienda = await Molienda.find();
+    const hm = await HM.find();
     res.render('uploading', {
-        demanda,
-        venta
+        horno,
+        molienda,
+        hm
     });
 });
 
@@ -80,17 +84,24 @@ router.post('/upl', isAuthenticated,(req,res) => {
 });
 
 router.post('/agregar',isAuthenticated, async (req,res) => {
-    const demanda = new Demanda(req.body);
-    await demanda.save();
-    console.log(demanda);
+    const horno = new Horno(req.body);
+    await horno.save();
+    console.log(horno);
     res.redirect('/upload');
 });
 
-router.post('/agregarVenta',isAuthenticated, async (req,res) => {
-    const venta = new Venta(req.body);
-    await venta.save();
-    console.log(venta);
-    res.redirect('/upload');
+router.post('/agregarMolienda',isAuthenticated, async (req,res) => {
+    const molienda = new Molienda(req.body);
+    await molienda.save();
+    console.log(molienda);
+    res.redirect('/upload')
+});
+
+router.post('/agregarHM',isAuthenticated, async (req,res) => {
+    const hm = new HM(req.body);
+    await hm.save();
+    console.log(hm);
+    res.redirect('/upload')
 });
 
 router.post('/agregarCiudad',isAuthenticated, async (req,res) => {
@@ -101,18 +112,27 @@ router.post('/agregarCiudad',isAuthenticated, async (req,res) => {
 });
 
 router.post('/agregarCabecera',isAuthenticated, async (req,res) => {
+    const entrada = new Entrada(req.body);
+    await entrada.save();
+    console.log(entrada);
     res.redirect('/upload');
 });
 
 router.get('/delete/:id', isAuthenticated, async (req,res) => {
     const { id } = req.params;
-    await Demanda.remove({ _id: id });
+    await Horno.remove({ _id: id });
+    res.redirect('/upload');
+});
+
+router.get('/agregarDistancia/:imolienda/:idistancia', isAuthenticated, async (req,res) => {
+    const hm = new HM(req.params);
+    await hm.save()
     res.redirect('/upload');
 });
 
 router.get('/deleteVenta/:id', isAuthenticated, async (req,res) => {
     const { id } = req.params;
-    await Venta.remove({ _id: id });
+    await Molienda.remove({ _id: id });
     res.redirect('/upload');
 });
 

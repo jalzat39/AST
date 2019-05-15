@@ -7,26 +7,26 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/gps">Map</a>
+        <a class="navbar-brand" href="/gps">Mapa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/city">City</a>
+        <a class="navbar-brand" href="/city">Ciudad</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/upload">Input</a>
+        <a class="navbar-brand" href="/upload">Entrada</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/uploadO">Output</a>
+        <a class="navbar-brand" href="/uploadO">Salida</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">LogOut</a>
+                    <a class="nav-link" href="/logout">Cerrar Sesion</a>
                 </li>           
             </ul>
         </div>
@@ -51,7 +51,7 @@
         <div class="col-md-4 offset-md-4">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Choose a document</h3>
+                    <h3>Elige un Documento</h3>
                 </div>
                     <div class="card-body">
                         <form action='/upl' method="POST" enctype="multipart/form-data">
@@ -62,32 +62,38 @@
                 </div>
             </div>
     </div>
-
     <div id="elementoB" class="row display-7 text-center" style="display: none;">
         <form action="/agregarCabecera" method="POST">
+            <h1>Constantes de Entrada</h1>
             <div class="form-group center">
-                <input type="emisiones" name="emisiones" placeholder="Emisiones tt3" class="form-control">
+                <input type="emisiones" name="emisiones" placeholder="Emisiones del Transporte" class="form-control">
             </div>
             <div class="form-group">
-                <input type="periodos" name="periodos" placeholder="Numero de Periodos" class="form-control">
+                <input type="costoTransporte" name="costoTransporte" placeholder="Costo del Transporte" class="form-control">
             </div>   
             <div class="form-group">
-                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
+                <input type="capital" name="capital" placeholder="Capital de la Cadena de Suministro" class="form-control">
             </div>
             <div class="form-group">
-                <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
+                <input type="red" name="red" placeholder="Estructura de la Red" class="form-control">
             </div>      
+            <div class="form-group">
+                <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
+            </div>
             <div class="form-group">
                 <input type="moliendas" name="moliendas" placeholder="Numero de Moliendas" class="form-control">
             </div>
             <div class="form-group">
-                <input type="capital" name="capital" placeholder="Costo del Capital" class="form-control">
+                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="planeacion" name="planeacion" placeholder="Numero de Periodos de Planeacion" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary btn-block mt-4">
                     Guardar Planta
             </button>
         </form>
-            <h1>Demanda</h1>
+            <h1>Proyectos de reconversión para cada horno en cada planta</h1>
                <div class="container">
                     <div class="row">
                         <div class="col-md-3">
@@ -95,22 +101,31 @@
                                 <div class="card-body">
                                     <form action="/agregar" method="POST">
                                         <div class="form-group">
-                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                            <input type="text" name="nombrePlanta" placeholder="Numero de Planta" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="demanda1" placeholder="Inserte el Primer Valor" class="form-control">
+                                            <input type="text" name="nombreHorno" placeholder="Numero de Horno" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="demanda2" placeholder="Inserte el Segundo Valor" class="form-control">
+                                            <input type="text" name="nombreProyecto" placeholder="numero de Proyecto" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="demanda3" placeholder="Inserte el Tercer Valor" class="form-control">
+                                            <input type="text" name="costoO" placeholder="Costo de Operacion" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="demanda4" placeholder="Inserte el Cuarto Valor" class="form-control">
+                                            <input type="text" name="emisiones" placeholder="Emision de la operacion" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="demanda5" placeholder="Inserte el Quinto Valor" class="form-control">
+                                            <input type="text" name="costoR" placeholder="Costo de Reconversion" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="capacidad" placeholder="Capacidad Maxima de Produccion" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="costosF" placeholder="Costo Fijo" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="costosC" placeholder="Costo de Cierre" class="form-control">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Agregar
@@ -124,27 +139,33 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>Nombre</th>
-                                        <th>Valor</th>
-                                        <th>Valor1</th>
-                                        <th>Valor2</th>
-                                        <th>Valor3</th>
-                                        <th>Valor4</th>
+                                        <th>Planta</th>
+                                        <th>Horno</th>
+                                        <th>Proyecto</th>
+                                        <th>CostoOperacion</th>
+                                        <th>Emision</th>
+                                        <th>CostoReconversion</th>
+                                        <th>Capacidad</th>
+                                        <th>CostoFijo</th>
+                                        <th>CostoCierre</th>
                                         <th>Operacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <% for (var i = 0; i < demanda.length; i++){ %>
+                                        <% for (var i = 0; i < horno.length; i++){ %>
                                             <tr>
                                                 <td><%= i + 1  %></td>
-                                                <td><%= demanda[i].nombre %></td>
-                                                <td><%= demanda[i].demanda1 %></td>
-                                                <td><%= demanda[i].demanda2 %></td>
-                                                <td><%= demanda[i].demanda3 %></td>
-                                                <td><%= demanda[i].demanda4 %></td>
-                                                <td><%= demanda[i].demanda5 %></td>
+                                                <td><%= horno[i].nombrePlanta %></td>
+                                                <td><%= horno[i].nombreHorno %></td>
+                                                <td><%= horno[i].nombreProyecto %></td>
+                                                <td><%= horno[i].costoO %></td>
+                                                <td><%= horno[i].emisiones %></td>
+                                                <td><%= horno[i].costoR %></td>
+                                                <td><%= horno[i].capacidad %></td>
+                                                <td><%= horno[i].costosF %></td>
+                                                <td><%= horno[i].costosC %></td>
                                                 <td>
-                                                    <a href="/delete/<%= demanda[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                                    <a href="/delete/<%= horno[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
                                                 </td>
                                             </tr>
                                         <% } %>
@@ -153,30 +174,39 @@
                         </div>
                     </div>
                </div>
-               <h1>Ventas</h1>
+               <h1>Proyectos de reconversión para cada Molienda en cada planta</h1>
                <div class="container">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="/agregarVenta" method="POST">
+                                    <form action="/agregarMolienda" method="POST">
                                         <div class="form-group">
-                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                            <input type="text" name="nombrePlanta" placeholder="Numero de Planta" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="venta1" placeholder="Inserte el Primer Valor" class="form-control">
+                                            <input type="text" name="nombreMolienda" placeholder="Numero de Molienda" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="venta2" placeholder="Inserte el Segundo Valor" class="form-control">
+                                            <input type="text" name="nombreProyecto" placeholder="numero de Proyecto" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="venta3" placeholder="Inserte el Tercer Valor" class="form-control">
+                                            <input type="text" name="costoO" placeholder="Costo de Operacion" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="venta4" placeholder="Inserte el Cuarto Valor" class="form-control">
+                                            <input type="text" name="emisiones" placeholder="Emision de la operacion" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="venta5" placeholder="Inserte el Quinto Valor" class="form-control">
+                                            <input type="text" name="costoR" placeholder="Costo de Reconversion" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="capacidad" placeholder="Capacidad Maxima de Produccion" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="costosF" placeholder="Costo Fijo" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="costosC" placeholder="Costo de Cierre" class="form-control">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Agregar
@@ -190,27 +220,33 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>Nombre</th>
-                                        <th>Valor</th>
-                                        <th>Valor1</th>
-                                        <th>Valor2</th>
-                                        <th>Valor3</th>
-                                        <th>Valor4</th>
+                                        <th>Planta</th>
+                                        <th>Molienda</th>
+                                        <th>Proyecto</th>
+                                        <th>CostoOperacion</th>
+                                        <th>Emision</th>
+                                        <th>CostoReconversion</th>
+                                        <th>Capacidad</th>
+                                        <th>CostoFijo</th>
+                                        <th>CostoCierre</th>
                                         <th>Operacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <% for (var i = 0; i < venta.length; i++){ %>
+                                        <% for (var i = 0; i < molienda.length; i++){ %>
                                             <tr>
                                                 <td><%= i + 1  %></td>
-                                                <td><%= venta[i].nombre %></td>
-                                                <td><%= venta[i].venta1 %></td>
-                                                <td><%= venta[i].venta2 %></td>
-                                                <td><%= venta[i].venta3 %></td>
-                                                <td><%= venta[i].venta4 %></td>
-                                                <td><%= venta[i].venta5 %></td>
+                                                <td><%= molienda[i].nombrePlanta %></td>
+                                                <td><%= molienda[i].nombreMolienda %></td>
+                                                <td><%= molienda[i].nombreProyecto %></td>
+                                                <td><%= molienda[i].costoO %></td>
+                                                <td><%= molienda[i].emisiones %></td>
+                                                <td><%= molienda[i].costoR %></td>
+                                                <td><%= molienda[i].capacidad %></td>
+                                                <td><%= molienda[i].costosF %></td>
+                                                <td><%= molienda[i].costosC %></td>
                                                 <td>
-                                                    <a href="/deleteVenta/<%= venta[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                                    <a href="/deleteVenta/<%= molienda[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
                                                 </td>
                                             </tr>
                                         <% } %>
@@ -219,7 +255,37 @@
                         </div>
                     </div>
                </div>
+            <div>
+            <h1>Distancia Horno vs Molienda</h1>
+            <div class="container">
+                <table id="table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>        
+                            <th>Operacion</th>
+                            <% for (var i = 0; i < horno.length; i++){ %> 
+                            <th><%= horno[i].nombreHorno %></th>
+                            <% } %>
+                            <th>Operacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for (var i = 0; i < molienda.length; i++){ %>
+                                <tr>
+                                    <td id="imolienda"><%= molienda[i].nombreMolienda %></td>
+                                    <% for (var j = 0; j < horno.length; j++){ %> 
+                                    <td contentEditable id="idistancia"></td>
+                                    <% } %>
+                                    <td>
+                                        <a href="/agregarDistancia/:imolienda/:idistancia" class="btn btn-info ">Guardar</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                </table>
+        </div>
     </div>
+</div>
+</div>
  
     <form class="form-inline col-md-4 col-md-offset-4" >
         <input type="button" class="btn btn-primary mt-4" value="Llenar Tabla" onclick="ocultar()">
