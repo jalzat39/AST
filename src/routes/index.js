@@ -79,7 +79,7 @@ router.post('/upl', isAuthenticated,(req,res) => {
     EDFile.mv(`./files/${EDFile.name}`,err => {
         if(err) return res.status(500).send({ message : err })
 
-        return res.status(200).render('uploading')
+        return res.redirect('/upload');
     })
 });
 
