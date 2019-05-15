@@ -7,31 +7,32 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/gps">Map</a>
+            <a class="navbar-brand" href="/city">Primeros pasos</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <a class="navbar-brand" href="/gps">Mapa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/city">City</a>
+        </button>
+        <a class="navbar-brand" href="/upload">Entrada</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/upload">Input</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="/uploadO">Output</a>
+        <a class="navbar-brand" href="/uploadO">Salida</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">LogOut</a>
+                    <a class="nav-link" href="/logout">Cerrar Sesion</a>
                 </li>           
             </ul>
         </div>
         </nav>
-
+        
 <div class="container">
     <%if (signinMessage.length > 0) {%>
         <div class="alert alert-danger"><%= signinMessage %></div>
@@ -40,7 +41,77 @@
         <div class="alert alert-danger"><%= signupMessage %></div>
     <% } %>
 </div>
+<h1></h1>
+        <hr />
+        <h1></h1>
+            <div class="container">
+             <h3> Sistema de Localiación  </h3>
+               
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/agregarCiudad" method="POST">
+                                        <div class="form-group">
+                                        <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                        <input type="text" name="tipo" placeholder="Inserte tipo" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <input type="text" name="latitud" placeholder="Inserte latitud" class="form-control">
+                
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="longitud" placeholder="Inserte longitud" class="form-control">
+                    
+                                            </div>
+                                    
 
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Agregar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Nombre</th>
+                                        <th>Tipo</th>
+                                        <th>latitud</th>
+                                        <th>longitud</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <% for (var i = 0; i < ciudad.length; i++){ %>
+                                            <tr>
+                                                <td><%= i + 1  %></td>
+                                                <td><%= ciudad[i].nombre %></td>
+                                                <td><%= ciudad[i].tipo %></td>
+                                                <td><%= ciudad[i].latitud %></td>
+                                                <td><%= ciudad[i].longitud %></td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                    
+                            </table>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <h1></h1>
+        <hr />
+        <h1></h1>
+            <div class="container">
+
+        <h1></h1>
+
+        <h3> Selecciona tus localizaciones  </h3>
 
     <style class="mb-4">
         /* Always set the map height explicitly to define the size of the div
@@ -55,10 +126,12 @@
                 padding: 0;
             }
     </style>
+    
+               </div>
 </head>
 
 <body>
-
+    
     <body>
         <div id="map" class="mb-5"></div>
         <script>
@@ -114,63 +187,25 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxBulUWENWsCHEl4ATFevpL7j85sjAZHY&callback=initMap"
             async defer></script>
-            
+            <hr style="color: #0056b2;" />   
         <form action="/save" method="POST">
+            <div class="container">
                 <div class="col-md-6">
                     <body>
-                        <h6>Latitude</h6>
+                        <h3>Latitud</h3>
                         <p name="latitud" id="latitud"></p>
                     </body>
 
                     <body>
-                        <h6>Longitude</h6>
+                        <h3>Longitud</h3>
                         <p name="longitud" id="longitud"></p>
                     </body>
                     <button type="submit" class="btn btn-primary btn-block mt-4">
-                        Refresh
+                        Actualizar
                     </button>
                 </div>
+            </div>
         </form>
-        <h1>Ciudades</h1>
-               <div class="container">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form action="/agregarCiudad" method="POST">
-                                        <div class="form-group">
-                                            <input type="text" name="nombre" placeholder="Inserte Nombre" class="form-control">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            Agregar
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th>Nombre</th>
-                                        <th>latitud</th>
-                                        <th>longitud</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <% for (var i = 0; i < ciudad.length; i++){ %>
-                                            <tr>
-                                                <td><%= i + 1  %></td>
-                                                <td><%= ciudad[i].nombre %></td>
-                                                <td><%= ciudad[i].latitud %></td>
-                                                <td><%= ciudad[i].longitud %></td>
-                                            </tr>
-                                        <% } %>
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-               </div>
+        
     </body>
 </html>
