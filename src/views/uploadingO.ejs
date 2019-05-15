@@ -56,81 +56,36 @@
                     <input type="button" class="btn btn-primary mt-4" value="Analizar" onclick="charts()">
                 </form>
                 </div>
-                <div>
-                        <style> /* set the CSS */
-
-                                .bar { fill: steelblue; }
-                                
-                        </style>
-                    <script src="https://d3js.org/d3.v5.js"> import {scaleLinear} from "d3-scale";</script>
-                    <h4 id="emisiones" class="row display-7 text-center" style="display: none;">Emisiones</h4>
-                    <svg width="600" height="600"></svg>
-                    <csv></csv>
-                    <rect></rect>
-                    <script>
-                        function charts(){
-                            document.getElementById("emisiones").style.display = "block";
-                            d3.json("XYZ.json", function(data) {
-                                var canvas = d3.select("csv").append("svg")
-                                    .attr("width", 600)
-                                    .attr("height", 600)
-
-                                canvas.selectAll("rect")
-                                    .data(data) 
-                                    .enter()
-                                        .append("rect")
-                                        .attr("width", function(d) { return d.emisiones * 10; })
-                                        .attr("height", 48)
-                                        .attr("y", function(d,i) { return i * 50})
-                                        .attr("fill", "blue");
-                                
-                            })
-                            // var svg = d3.select("svg"),
-                            // margin = 200,
-                            // width = svg.attr("width") - margin,
-                            // height = svg.attr("height") - margin;
-                            
-                            // var g = svg.append("g")
-                            // .attr("transform", "translate(" + 100 + "," + 100 + ")");
-
-                            // var dataX = [1, 2, 3, 4],
-                            // dataY = [3000, 4000, 1000, 500];
-
-                            // var xscale = d3.scaleLinear()
-                            // .domain([0, d3.max(dataX)])
-                            // .range([0, width - 100]);                                
-                            
-                            // var yscale = d3.scaleLinear()
-                            // .domain([0, d3.max(dataY)])
-                            // .range([height/2, 0]);
-
-                            // var x_axis = d3.axisBottom()
-                            // .scale(xscale);
-
-                            // var y_axis = d3.axisLeft()
-                            //         .scale(yscale);
-
-                            //     svg.append("g")
-                            //     .attr("transform", "translate(50, 10)")
-                            //     .call(y_axis);
-
-                            // var xAxisTranslate = height/2 + 10;
-
-                            //     svg.append("g")
-                            //     .attr("transform", "translate(50, " + xAxisTranslate  +")")
-                            //     .call(x_axis)                    
-                            // g.selectAll(".bar")
-                            // .data(data)
-                            // .enter().append("rect")
-                            // .attr("class", "bar")
-                            // attr("x", function(d) { return xScale(d.dataX); })
-                            // .attr("y", function(d) { return yScale(d.dataY); })
-                            // .attr("width", xScale.bandwidth())
-                            // .attr("height", function(d) { return height - yScale(d.dataY); }); 
-   
-                        } 
-                    </script>
+                <div class="container">
+                    <canvas id="myChart"></canvas>
                 </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+                <h4 id="emisiones" class="row display-7 text-center" style="display: none;">Emisiones</h4>
+                <svg width="600" height="600"></svg>
+                <csv></csv>
+                <rect></rect>
+                <script>
+                    let myChart = document.getElementById('myChart').getContext('2d');
+
+                    let massPopChart = new Chart(myChart, {
+                        type: 'bar',
+                        data:{
+                            labels:['Proyecto 1', 'Proyecto 2', 'Proyecto 3', 'Proyecto 4'],
+                            datasets:[{
+                                label:'Emisiones',
+                                data:[
+                                    50304,
+                                    23255,
+                                    10034,
+                                    6005
+                                ]
+                            }]
+                        },
+                        options:{}
+                    });
+
+                </script>
+            
             </div>
         </div>
     </div>
