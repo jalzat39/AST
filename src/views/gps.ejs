@@ -32,7 +32,7 @@
             </ul>
         </div>
         </nav>
-
+        
 <div class="container">
     <%if (signinMessage.length > 0) {%>
         <div class="alert alert-danger"><%= signinMessage %></div>
@@ -41,8 +41,11 @@
         <div class="alert alert-danger"><%= signupMessage %></div>
     <% } %>
 </div>
-<div class="container"></div>
-<h3> Sistema de Localiación  </h3>
+<h1></h1>
+        <hr />
+        <h1></h1>
+            <div class="container">
+             <h3> Sistema de Localiación  </h3>
                
                     <div class="row">
                         <div class="col-md-5">
@@ -100,6 +103,15 @@
                         </div>
                     </div>
                </div>
+            </div>
+            <h1></h1>
+        <hr />
+        <h1></h1>
+            <div class="container">
+
+        <h1></h1>
+
+        <h3> Selecciona tus localizaciones  </h3>
 
     <style class="mb-4">
         /* Always set the map height explicitly to define the size of the div
@@ -115,11 +127,11 @@
             }
     </style>
     
-
+               </div>
 </head>
 
 <body>
-
+    
     <body>
         <div id="map" class="mb-5"></div>
         <script>
@@ -175,22 +187,24 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxBulUWENWsCHEl4ATFevpL7j85sjAZHY&callback=initMap"
             async defer></script>
-            
+            <hr style="color: #0056b2;" />   
         <form action="/save" method="POST">
+            <div class="container">
                 <div class="col-md-6">
                     <body>
-                        <h6>Latitud</h6>
+                        <h3>Latitud</h3>
                         <p name="latitud" id="latitud"></p>
                     </body>
 
                     <body>
-                        <h6>Longitud</h6>
+                        <h3>Longitud</h3>
                         <p name="longitud" id="longitud"></p>
                     </body>
                     <button type="submit" class="btn btn-primary btn-block mt-4">
                         Actualizar
                     </button>
                 </div>
+            </div>
         </form>
         
     </body>
