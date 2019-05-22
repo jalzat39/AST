@@ -1,0 +1,931 @@
+model argos
+uses "mmxprs"
+CPUTime:=currenttime
+contador:=1	
+setparam("XPRS_GOMCUTS",1)
+setparam("XPRS_COVERCUTS",2)
+setparam("XPRS_MIPRELSTOP", 0.1)
+declarations
+
+
+	
+! el cambio del valor del dinero en el tiempo se incluye en cada formula de costos
+
+	!==========
+	!CONJUNTOS
+	H, M, R, Y: integer	!Número de hornos, molinos, molinos y proveedores de yeso
+	C: integer			!Número de clientes
+	T: integer			!Número de periodos
+	B, Ff: real			!Factor unitario de impacto ambiental y de costo del transporte por unidad de distancia por tonelada
+	!Fuente1, Fuente2: string
+	!==========
+	!PARÁMETROS
+	!---
+	d: array(range,range) of real			!Demanda del cliente c en el periodo t
+	
+	!---
+	Ph: array(range) of integer			!Número de proyectos para cada horno
+	Pm: array(range) of integer			!Número de proyectos para cada molino
+	Pr: array(range) of integer	
+	
+	!---
+	
+	eH: array(range, range) of real		!Impacto ambiental unitario asociado al proyecto i in Ph
+	e2H: array(range, range) of real		!Impacto ambiental unitario asociado al proyecto i in Ph
+	e3H: array(range, range) of real		!Impacto ambiental unitario asociado al proyecto i in Ph
+	
+	eM: array(range, range) of real		!Impacto ambiental unitario asociado al proyecto j in Pm 
+	
+	eR: array(range, range) of real		!Impacto ambiental unitario asociado al proyecto j in Pm 
+	!---
+	
+	dRH: array(range, range) of real	!Distancia entre el molinoR r en R y el horno h en H
+	dHM: array(range, range) of real	!Distancia entre el horno h en H y el molino m en M
+	dMC: array(range, range) of real	!Distancia entre el molino m en M y el cliente c en C
+	dYM: array(range, range) of real	!Distancia entre el proveedor de yesto y en Y y el molino m en M
+	!---
+	QH: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto i en Ph
+	QM: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto j en Pm
+	QR: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto j en Pm
+	!---
+	qH: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto i en Ph
+	qM: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto j en Pm
+	qR: array(range, range) of real		!Capacidad de producción una vez implementado el proyecto j en Pm
+	
+	!costos SIN INDICE T:
+	
+	rH: array(range, range) of real		!Costo de implementar el proyecto i en Ph en el horno h en H
+	rM: array(range, range) of real		!Costo de implementar el proyecto j en Pm en el molino m en M
+	rR: array(range, range) of real		!Costo de implementar el proyecto j en Pm en el molino m en M
+	!---
+	pH: array(range, range) of real		!Costo unitario de producción una vez implementado el proyecto i en Ph en el horno h en H
+	pM: array(range, range) of real		!Costo unitario de producción una vez implementado el proyecto j en Pm en el molino m en M
+	pR: array(range, range) of real	
+	
+	!---
+	fijosH: array(range, range) of real		!costos fijos del proyecto i en Ph en el horno h en H 
+	fijosM: array(range, range) of real		!costos fijos del proyecto j en Pm en el molino m en M
+	fijosR: array(range, range) of real
+	
+	!---
+	cierreH: array(range) of real		!Costos de cierre del horno h en H 
+	cierreM: array(range) of real		!Costos de cierre del molino m en M 
+	cierreR: array(range) of real
+	!---
+	fuel_e: array(range,range) of real !Cuánto combustible usé por un factor de disponibilidad y localización de fuentes de combustible por horno
+	fuel_c: array(range,range) of real
+	
+	!costos intexados en t
+	!---
+	rHt: array(range, range, range) of real		!Costo de implementar el proyecto i en Ph en el horno h en H
+	rMt: array(range, range, range) of real		!Costo de implementar el proyecto j en Pm en el molino m en M
+	rRt: array(range, range, range) of real		!Costo de implementar el proyecto j en Pm en el molino m en M
+	!---
+	pHt: array(range, range, range) of real		!Costo unitario de producción una vez implementado el proyecto i en Ph en el horno h en H
+	pMt: array(range, range, range) of real		!Costo unitario de producción una vez implementado el proyecto j en Pm en el molino m en M
+	pRt: array(range, range, range) of real	
+	
+	!---
+	fijosHt: array(range, range, range) of real		!costos fijos del proyecto i en Ph en el horno h en H 
+	fijosMt: array(range, range, range) of real		!costos fijos del proyecto j en Pm en el molino m en M
+	fijosRt: array(range, range, range) of real
+	
+	cierreHt: array(range,range) of real		!Costos de cierre del horno h en H 
+	cierreMt: array(range,range) of real		!Costos de cierre del molino m en M 
+	cierreRt: array(range,range) of real
+	!---
+	
+	fuel_ct: array(range,range,range) of real
+	Ff_t: array(range) of real
+	
+	!==========
+	!VARIABLES DE DECISIÓN
+	!---
+	!cambio en la definición de x. la nueva variable aH define cuál proyecto está instalado en un equipo, x ya no es necesaria
+	
+	xH: array(range, range, range) of mpvar	!Variable binaria. xH(h,i)=1 si al horno h en H está instalado el proyecto i en Ph
+	xM: array(range, range, range) of mpvar	!Variable binaria. xM(m,j)=1 si al molino m en M está instalado  el proyecto j en Pm
+	xR: array(range, range, range) of mpvar	!Variable binaria. xpM(m,j)=1 si al molino r en R está instalado  el proyecto k en Pr
+	!---
+	AH: array(range, range, range) of mpvar	!Producción en el horno h en H, con el proyecto i en Ph, en el periodo t en T
+	AM: array(range, range, range) of mpvar	!Producción en la molienda m en M, con el proyecto j en Pm, en el periodo t en T
+	AR: array(range, range, range) of mpvar	!Producción en la premolienda r en R, con el proyecto k en Pr, en el periodo t en T
+	AY: array(range, range) of mpvar !cuanto yeso se compra al proveedor y en Y en el periodo t en t
+	
+	fRH: array(range, range, range) of mpvar	!Cantidad despachada (rw) de  r en R a  h en H en el periodo t en T
+	fHM: array(range, range, range) of mpvar	!Cantidad despachada (clinker) del horno h en H al molino m en M en el periodo t en T
+	fMC: array(range, range, range) of mpvar	!Cantidad despachada (cemento a granel) del molino m en M al cliente c en C en el periodo t en T
+	fYM: array(range, range, range) of mpvar	!Cantidad de yeso despachada por el proveedor y en Y al molino m en M en el periodo t en T	
+	
+	!nuevas variables necesarias para la formulación de varios períodos
+	
+	zH: array(range, range, range) of mpvar !reconoce si hubo un cambio de tecnología en el equipo
+	zM: array(range, range, range) of mpvar
+	zR: array(range, range, range) of mpvar
+	
+	aH: array(range,  range) of mpvar !reconoce si un equipo está operando, en un periodo
+	aM: array(range,  range) of mpvar
+	aR: array(range,  range) of mpvar
+	
+	outH: array(range,  range) of mpvar !reconoce en cual período un equipo sale de operación
+	outM: array(range,  range) of mpvar
+	outR: array(range,  range) of mpvar
+	
+	EZe1: array(range) of mpvar !imprime vble ...
+	EZe2: array(range) of mpvar
+	EZe3: array(range) of mpvar
+	EZe4: array(range) of mpvar
+	EZe5: array(range) of mpvar
+	CZc1: array(range) of mpvar
+	CZc2: array(range) of mpvar 
+	CZc3: array(range) of mpvar
+	CZc4: array(range) of mpvar
+	CZc5: array(range) of mpvar 
+	CZc6: array(range) of mpvar 
+	T1: array(range) of mpvar 
+	T2: array(range) of mpvar 
+	T3: array(range) of mpvar 
+	TY: array(range) of mpvar
+	TF: array(range) of mpvar
+	nR:array(range) of mpvar 
+	nH:array(range) of mpvar 
+	nM: array(range) of mpvar 
+	poR: array(range,  range, range) of mpvar
+	poH:array(range,  range, range) of mpvar
+	poM:array(range,  range, range) of mpvar(!!)
+	
+		
+end-declarations
+
+
+
+initializations from 'model.dat'
+	H M R B Ff C T Y
+end-initializations
+!---
+!Creación de arreglos de parámetros
+!---
+	forall(h in 1..H)create(Ph(h))
+	forall(m in 1..M)create(Pm(m))
+	forall(r in 1..R)create(Pr(r))
+!---
+	forall(t in 1..T,c in 1..C)create(d(t,c))
+	
+!---
+	forall(r in 1..R, h in 1..H)create(dRH(r,h))
+	forall(h in 1..H, m in 1..M)create(dHM(h,m))
+	forall(m in 1..M, c in 1..C)create(dMC(m,c))
+	forall(y in 1..Y, m in 1..M)create(dYM(y,m))
+	!---
+!Alimentar parámetros desde archivo de texto
+!---
+initializations from 'model.dat'
+	Pr Ph Pm 
+end-initializations
+
+initializations from 'model.dat'
+		d dHM  dMC dYM dRH
+end-initializations
+
+!---
+!Creación de arreglos de parámetros
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(eH(h,i))
+	forall(h in 1..H, i in 1..Ph(h))create(e2H(h,i))
+	forall(h in 1..H, i in 1..Ph(h))create(e3H(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(eM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(eR(r,k))
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(pH(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(pM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(pR(r,k))
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(qH(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(qM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(qR(r,k))
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(QH(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(QM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(QR(r,k))
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(rH(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(rM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(rR(r,k))
+!---
+	forall(h in 1..H, i in 1..Ph(h))create(fijosH(h,i))
+	forall(m in 1..M, j in 1..Pm(m))create(fijosM(m,j))
+	forall(r in 1..R, k in 1..Pr(r))create(fijosR(r,k))
+	!---
+	forall(h in 1..H)create(cierreH(h))
+	forall(m in 1..M)create(cierreM(m))	
+	forall(r in 1..R)create(cierreR(r))
+	
+	forall(h in 1..H, i in 1..Ph(h))create(fuel_e(h,i))
+	forall(h in 1..H, i in 1..Ph(h))create(fuel_c(h,i))	
+	
+initializations from 'model.dat'
+	eH e2H e3H eM eR pH pM pR qH qM qR QH QM QR rH rM rR fijosH fijosM fijosR cierreH cierreM cierreR fuel_e fuel_c
+end-initializations
+	
+
+	
+!---nuevos parámetros con indice t primer t
+	
+	forall (t in 1..1) do
+	
+	forall(h in 1..H, i in 1..Ph(h))  do 
+	pHt(h,i,1):= pH(h,i)
+	rHt(h,i,1):= rH(h,i)
+	fijosHt(h,i,1):= fijosH(h,i)
+	cierreHt(h,1):= cierreH(h)
+	fuel_ct(h,i,1):= fuel_c(h,i)
+	end-do
+	
+	forall(m in 1..M, j in 1..Pm(m)) do
+	pMt(m,j,1):= pM(m,j)
+	rMt(m,j,1):= rM(m,j)
+	fijosMt(m,j,1):= fijosM(m,j)
+	cierreMt(m,1):= cierreM(m)
+	end-do
+	
+	forall(r in 1..R, k in 1..Pr(r)) do
+	pRt(r,k,1):= pR(r,k)
+	rRt(r,k,1):= rR(r,k)
+    fijosRt(r,k,1):= fijosR(r,k)
+	cierreRt(r,1):= cierreR(r)
+	Ff_t(1):= Ff
+	end-do
+	   
+	end-do
+	
+!---nuevos parámetros con indice t primer 2..t
+	
+	forall (t in 2..T) do
+	
+	forall(h in 1..H, i in 1..Ph(h))  do 
+	pHt(h,i,t):= pHt(h,i,t-1)*1.03
+	rHt(h,i,t):= rHt(h,i,t-1)*1.01
+	fijosHt(h,i,t):= fijosHt(h,i,t-1)*1.02
+	cierreHt(h,t):= cierreHt(h,t-1)*1.02
+	fuel_ct(h,i,t):= fuel_ct(h,i,t-1)*1.02
+	end-do
+	
+	forall(m in 1..M, j in 1..Pm(m)) do
+	pMt(m,j,t):= pMt(m,j,t-1)*1.03
+	rMt(m,j,t):= rMt(m,j,t-1)*1.01
+	fijosMt(m,j,t):= fijosMt(m,j,t-1)*1.02
+	cierreMt(m,t):= cierreMt(m,t-1)*1.02
+	end-do
+	
+	forall(r in 1..R, k in 1..Pr(r)) do
+	pRt(r,k,t):= pRt(r,k,t-1)*1.03
+	rRt(r,k,t):= rRt(r,k,t-1)*1.01
+    fijosRt(r,k,t):= fijosRt(r,k,t-1)*1.02
+	cierreRt(r,t):= cierreRt(r,t-1)*1.02
+	end-do
+	
+	Ff_t(t):= Ff_t(t-1)*1.02
+	end-do
+!---
+!Alimentar parámetros desde archivo de texto
+!---
+
+!---
+!Creación de arreglos de variables de decisión
+!---
+	forall(h in 1..H, i in 1..Ph(h), t in 1..T)create(xH(h,i,t)) ! define el proyecto tec instalado en un equipo
+	forall(m in 1..M, j in 1..Pm(m), t in 1..T)create(xM(m,j,t))
+	forall(r in 1..R, k in 1..Pr(r), t in 1..T)create(xR(r,k,t))	
+
+	forall(h in 1..H,  t in 1..T)create(aH(h,t)) !define si el equipo opera o no
+	forall(m in 1..M,  t in 1..T)create(aM(m,t))
+	forall(r in 1..R,  t in 1..T)create(aR(r,t))
+	
+	forall(h in 1..H,  t in 2..T)create(outH(h,t)) !reconoce en cual período un equipo sale de operación
+	forall(m in 1..M,  t in 2..T)create(outM(m,t)) 
+	forall(r in 1..R,  t in 2..T)create(outR(r,t)) 
+	
+		
+	forall(h in 1..H, i in 1..Ph(h), t in 2..T)create(zH(h,i,t)) ! define el cambio de tec en un equipo
+	forall(m in 1..M, j in 1..Pm(m), t in 2..T)create(zM(m,j,t))
+	forall(r in 1..R, k in 1..Pr(r), t in 2..T)create(zR(r,k,t))
+		
+!---
+	forall(h in 1..H, i in 1..Ph(h),t in 1..T)create(AH(h,i,t)) ! cuanto produce con cuál proyecto
+	forall(m in 1..M, j in 1..Pm(m),t in 1..T)create(AM(m,j,t))
+	forall(r in 1..R, k in 1..Pr(r), t in 1..T)create(AR(r,k,t))
+!---
+	forall(r in 1..R, h in 1..H, t in 1..T)create(fRH(r,h,t))
+	forall(h in 1..H, m in 1..M, t in 1..T)create(fHM(h,m,t))
+	forall(m in 1..M, c in 1..C, t in 1..T)create(fMC(m,c,t))
+	forall(y in 1..Y, m in 1..M, t in 1..T)create(fYM(y,m,t))
+	
+!---
+
+	forall(t in 2..T)create (EZe1(t)) 
+	forall(t in 2..T)create (EZe2(t)) 
+	forall(t in 2..T)create (EZe3(t)) 
+	forall(t in 2..T)create (EZe4(t)) 
+	forall(t in 2..T)create (EZe5(t)) 
+	forall(t in 2..T)create (CZc1(t)) 
+	forall(t in 2..T)create (CZc2(t)) 
+	forall(t in 2..T)create (CZc3(t))
+	forall(t in 2..T)create (CZc4(t)) 
+	forall(t in 2..T)create (CZc5(t))
+	forall(t in 2..T)create (CZc6(t))
+	
+	forall(t in 2..T)create (T1(t)) 
+	forall(t in 2..T)create (T2(t))
+	forall(t in 2..T)create (T3(t)) 
+	forall(t in 2..T)create (TY(t))
+	forall(t in 2..T)create (TF(t))
+	
+	forall(t in 2..T)create (nR(t))
+	forall(t in 2..T)create (nH(t))
+	forall(t in 2..T)create (nM(t))
+	forall(h in 1..H, i in 1..Ph(h),t in 1..T)create(poH(h,i,t)) ! % de uso de capacidad
+	forall(m in 1..M, j in 1..Pm(m),t in 1..T)create(poM(m,j,t))(!!)
+	forall(r in 1..R, k in 1..Pr(r), t in 1..T)create(poR(r,k,t))
+	
+!==========
+!FUNCIÓN OBJETIVO AMBIENTAL
+!Impacto ambiental de la producción (Ze1)y el transporte (Ze2)
+!==========
+
+Ze1:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)eH(h,i)*AH(h,i,t)+
+	 sum(m in 1..M, j in 1..Pm(m), t in 2..T)eM(m,j)*AM(m,j,t)+
+	 sum(r in 1..R, k in 1..Pr(r), t in 2..T)eR(r,k)*AR(r,k,t)
+	 
+Ze2:=sum(r in 1..R, h in 1..H, t in 2..T)B*dRH(r,h)*fRH(r,h,t)+
+	sum(h in 1..H, m in 1..M, t in 2..T)B*dHM(h,m)*fHM(h,m,t)+
+	 sum(m in 1..M, c in 1..C, t in 2..T)B*dMC(m,c)*fMC(m,c,t)+
+	 sum(y in 1..Y, m in 1..M, t in 2..T)B*dYM(y,m)*fYM(y,m,t)+
+	 sum(h in 1..H, i in 1..Ph(h), t in 2..T)fuel_e(h,i)*AH(h,i,t)
+!	
+EO:=Ze1+Ze2
+
+Ze3:=sum(h in 1..H, i in 1..Ph(h),t in 2..T)fuel_e(h,i)*AH(h,i,t)
+
+nox:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)e2H(h,i)*AH(h,i,t)
+	 
+sox:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)e3H(h,i)*AH(h,i,t)
+
+	 
+!Environmental Objective !ojo con los dos últimos sumandos
+
+!==========
+!FUNCIÓN OBJETIVO DE COSTO TOTAL:
+!Costo de la reconversión (Zc1), de la producción (Zc2), y del transporte (Zc3)
+!==========
+
+!Para varios períodos cambia la estructura de la ecuación de costos de reconversión. 
+!la matriz de costos multiplica a la nueva variable z, que define si hay o no cambio de tecnología en un equipo
+
+Zc1:=sum(h in 1..H, i in 1..Ph(h), t in 2..T) rHt(h,i,t)*zH(h,i,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, j in 1..Pm(m), t in 2..T)rMt(m,j,t)*zM(m,j,t)/(1+0.02)^(t-2)+
+	sum(r in 1..R, k in 1..Pr(r), t in 2..T)rRt(r,k,t)*zR(r,k,t)/(1+0.02)^(t-2)
+	 
+Zc2:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)pHt(h,i,t)*AH(h,i,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, j in 1..Pm(m), t in 2..T)pMt(m,j,t)*AM(m,j,t)/(1+0.02)^(t-2) +
+	  sum(r in 1..R, k in 1..Pr(r), t in 2..T)pRt(r,k,t)*AR(r,k,t)/(1+0.02)^(t-2)
+	 
+	 
+Zc3:=sum(r in 1..R, h in 1..H, t in 2..T)Ff_t(t)*dRH(r,h)*fRH(r,h,t)/(1+0.02)^(t-2)+
+	sum(h in 1..H, m in 1..M, t in 2..T)Ff_t(t)*dHM(h,m)*fHM(h,m,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, c in 1..C, t in 2..T)Ff_t(t)*dMC(m,c)*fMC(m,c,t)/(1+0.02)^(t-2)+
+	 sum(y in 1..Y, m in 1..M, t in 2..T)Ff_t(t)*dYM(y,m)*fYM(y,m,t)/(1+0.02)^(t-2)+
+	sum(h in 1..H, i in 1..Ph(h),t in 2..T)fuel_ct(h,i,t)*AH(h,i,t)/(1+0.02)^(t-2)
+
+ 
+Zc4:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)fijosHt(h,i,t)*xH(h,i,t)/(1+0.02)^(t-2)+
+	sum(m in 1..M, j in 1..Pm(m), t in 2..T)fijosMt(m,j,t)*xM(m,j,t)/(1+0.02)^(t-2) +
+ 	sum(r in 1..R, k in 1..Pr(r), t in 2..T)fijosMt(r,k,t)*xR(r,k,t)/(1+0.02)^(t-2)
+
+Zc5:=sum(h in 1..H, t in 2..T) cierreHt(h,t)*outH(h,t)/(1+0.02)^(t-2) + 
+sum(m in 1..M, t in 2..T) cierreMt(m,t)*outM(m,t)/(1+0.02)^(t-2) + 
+sum(r in 1..R, t in 2..T) cierreRt(r,t)*outR(r,t)/(1+0.02)^(t-2)
+
+Zc6:=sum(h in 1..H, i in 1..Ph(h), t in 2..T)fuel_ct(h,i,t)*AH(h,i,t)
+
+CO:=Zc2+Zc3+Zc4+Zc1+Zc5	!Cost Objective
+
+CI:=Zc1+Zc5
+
+!==========
+!RESTRICCIONES
+!==========
+
+
+forall(h in 1..H, t in 1..T)
+	C1(h,t):= aH(h,t) is_binary
+!---
+forall(m in 1..M, t in 1..T)
+	C2 (m,t):= aM(m,t) is_binary
+	
+forall(r in 1..R, t in 1..T)
+	C3 (r,t):= aR(r,t) is_binary
+	
+forall(h in 1..H, i in 1..Ph(h), t in 1..T)
+	C4 (h,i,t):= xH(h,i,t) is_binary 
+	
+forall(m in 1..M, j in 1..Pm(m), t in 1..T)
+	C5 (m,j,t):= xM(m,j,t) is_binary 
+	
+forall(r in 1..R, k in 1..Pr(r), t in 1..T)
+	C6 (r,k,t):= xR(r,k,t) is_binary 
+
+
+forall(h in 1..H, i in 1..Ph(h),t in 1..T)
+	C10(h,i,t):=zH(h,i,t) is_binary
+!---
+forall(m in 1..M, j in 1..Pm(m),t in 1..T)
+	C11(m,j,t):=zM(m,j,t) is_binary
+!---
+forall(r in 1..R, k in 1..Pr(r),t in 1..T)
+	C12(r,k,t):=zR(r,k,t) is_binary
+
+
+!Primer período con demanda cero. definición de tecnologías iniciales en cada equipo.
+	
+forall(h in 1..H,i in 1..Ph(h),t in 1..T)
+C13(h,i,t):=xH(h,1,1)=1
+
+forall(m in 1..M,j in 1..Pm(m),t in 1..T)
+C14(m,j,t):= xM(m,1,1)=1
+
+forall(r in 1..R,k in 1..Pr(r),t in 1..T)
+C15(r,k,t):= xR(r,1,1)=1
+
+
+forall(h in 1..H,i in 1..Ph(h),t in 1..T)
+Cz13(h,i,t):=zH(h,1,1)=0
+
+forall(m in 1..M,j in 1..Pm(m),t in 1..T)
+Cz14(m,j,t):= zM(m,1,1)=0
+
+forall(r in 1..R,k in 1..Pr(r),t in 1..T)
+Cz15(r,k,t):= zR(r,1,1)=0
+
+
+! una tec instalada por período	
+forall(h in 1..H, t in 1..T)
+C16(h,t):= sum(i in 1..Ph(h))xH(h,i,t)<=1
+!---
+forall(m in 1..M, t in 1..T)
+C17(m,t):= sum(j in 1..Pm(m))xM(m,j,t)<=1
+
+forall(r in 1..R, t in 1..T)
+C18(r,t):= sum(k in 1..Pr(r))xR(r,k,t)<=1
+
+! solo un cambio en el periodo de planeación	
+
+forall (h in 1..H)
+C22(h):= sum (i in 1..Ph(h), t in 1..T) zH(h,i,t)<=1
+!---
+ forall (m in 1..M)
+C23(m):= sum (j in 1..Pm(m), t in 1..T) zM(m,j,t)<=1
+
+forall (r in 1..R)
+C24(r):= sum (k in 1..Pr(r), t in 1..T) zR(r,k,t)<=1
+
+
+!reconoce el período de instalación de un nuevo proyecto
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+C25(h,i,t):=xH(h,i,t)-xH(h,i,t-1)<= zH(h,i,t)
+
+forall(m in 1..M, j in 1..Pm(m),t in 2..T)
+C26(m,j,t):=xM(m,j,t)-xM(m,j,t-1)<=zM(m,j,t)
+
+forall(r in 1..R, k in 1..Pr(r),t in 2..T)
+C27(r,k,t):=xR(r,k,t)-xR(r,k,t-1)<=zR(r,k,t)
+
+!los cambios solo ocurren sobre equipos en operación
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+C28(h,i,t):=xH(h,i,t)>= zH(h,i,t)
+
+forall(m in 1..M, j in 1..Pm(m),t in 2..T)
+C29(m,j,t):=xM(m,j,t)>= zM(m,j,t)
+
+forall(r in 1..R, k in 1..Pr(r),t in 2..T)
+C30(r,k,t):=xR(r,k,t)>= zR(r,k,t)
+
+!una planta cerrada no podría volver a operar.
+
+forall(h in 1..H,t in 1..1)
+C31(h,t):=aH(h,1)=1
+
+forall(m in 1..M,t in 1..1)
+C32(m,t):=aM(m,1)=1
+	
+forall(r in 1..R,t in 1..1)
+C33(r,t):=aR(r,1)=1	
+		
+forall(h in 1..H, t in 2..T)
+C34(h,t):=aH(h,t)<=aH(h,t-1)
+
+forall(m in 1..M, t in 2..T)
+C35(m,t):=aM(m,t)<=aM(m,t-1)
+
+forall(r in 1..R, t in 2..T)
+C36(r,t):=aR(r,t)<=aR(r,t-1)
+
+
+!---
+!Restricciones de capacidad
+!---
+
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+C37(h,i,t):=AH(h,i,t)<=QH(h,i)*xH(h,i,t)-zH(h,i,t)*QH(h,i)*0.7
+
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+C38(h,i,t):=AH(h,i,t)>=qH(h,i)*xH(h,i,t)-zH(h,i,t)*qH(h,i)*0.9
+
+!relacion entre A, o, x
+forall(h in 1..H, i in 1..Ph(h), t in 2..T)
+	C39(h,i,t):= AH(h,i,t)>=xH(h,i,t)
+
+!igual para las moliendas
+
+forall(m in 1..M, j in 1..Pm(m),t in 2..T)
+	C40(m,j,t):=AM(m,j,t)<=QM(m,j)*xM(m,j,t)-zM(m,j,t)*qM(m,j)*0.5
+
+forall(m in 1..M, j in 1..Pm(m),t in 2..T)
+	C41(m,j,t):=AM(m,j,t)>=qM(m,j)*xM(m,j,t)-zM(m,j,t)*qM(m,j)*0.9
+
+!---
+forall(m in 1..M, j in 1..Pm(m), t in 2..T)
+	C42 (m,j,t):=AM(m,j,t)>=xM(m,j,t)
+!---
+
+!igual para las moliendas de mp
+
+forall(r in 1..R, k in 1..Pr(r),t in 2..T)
+	C43(r,k,t):=AR(r,k,t)<=QR(r,k)*xR(r,k,t)-zR(r,k,t)*qR(r,k)*0.5
+
+forall(r in 1..R, k in 1..Pr(r),t in 2..T)
+	C44(r,k,t):=AR(r,k,t)>=qR(r,k)*xR(r,k,t)-zR(r,k,t)*qR(r,k)*0.9
+ !----
+
+forall(r in 1..R, k in 1..Pr(r), t in 2..T)
+	C45(r,k,t):=AR(r,k,t)>=xR(r,k,t)
+!---
+
+!reconocer si un equipo opera o no. sino opera, activa los costos de cierre
+forall(h in 1..H, t in 2..T)
+	C46(h,t):=sum(i in 1..Ph(h))xH(h,i,t)=aH(h,t)
+!---
+forall(m in 1..M, t in 2..T)
+	C47(m,t):=sum(j in 1..Pm(m))xM(m,j,t)=aM(m,t)
+!---
+forall(r in 1..R, t in 2..T)
+	C48(r,t):=sum(k in 1..Pr(r))xR(r,k,t)=aR(r,t)
+
+!Restricciones de demanda
+!---
+forall(c in 1..C,t in 1..T)
+	C49(c,t):=sum(m in 1..M)fMC(m,c,t)=d(t,c)
+!---
+!Restricciones de balance
+!---
+
+forall(r in 1..R, t in 1..T)
+	C50(r,t):=sum(k in 1..Pr(r))AR(r,k,t)=sum(h in 1..H)fRH(r,h,t)
+
+forall(h in 1..H, t in 1..T)
+	C51(h,t):=sum(i in 1..Ph(h))AH(h,i,t)=0.50*sum(r in 1..R)fRH(r,h,t)
+
+forall(r in 1..R, t in 1..T)
+	C52(r,t):=sum(h in 1..H)fRH(r,h,t)=sum(k in 1..Pr(r))AR(r,k,t)
+
+forall(h in 1..H,t in 1..T)
+	C53(h,t):=sum(i in 1..Ph(h))AH(h,i,t)=sum(m in 1..M)fHM(h,m,t)
+!---
+forall(m in 1..M, t in 1..T)
+	C54(m,t):=sum(h in 1..H)fHM(h,m,t)=(1/1.3)*sum(c in 1..C)fMC(m,c,t)
+!---
+forall(m in 1..M,t in 1..T)
+	C55(m,t):=(1/1.3)*sum(j in 1..Pm(m))AM(m,j,t)=sum(h in 1..H)fHM(h,m,t)
+	
+forall(m in 1..M,t in 1..T)
+	C56(m,t):=sum(j in 1..Pm(m))AM(m,j,t)=sum(h in 1..H)fHM(h,m,t)+sum(y in 1..Y)fYM(y,m,t)
+!---
+forall(m in 1..M,t in 1..T)
+	C57(m,t):=sum(j in 1..Pm(m))AM(m,j,t)=sum(c in 1..C)fMC(m,c,t)
+!---
+
+	
+
+
+!Activa los costos de cierre
+
+forall(h in 1..H, t in 2..T)
+outH(h,t)=(aH(h,t-1)-aH(h,t))
+
+forall(h in 1..H)
+sum(t in 2..T)outH(h,t)<=1
+
+forall(m in 1..M, t in 2..T)
+outM(m,t)=(aM(m,t-1)-aM(m,t))
+
+forall(m in 1..M)
+sum(t in 2..T)outM(m,t)<=1
+
+forall(r in 1..R, t in 2..T)
+outR(r,t)=(aR(r,t-1)-aR(r,t))
+
+forall(r in 1..R)
+sum(t in 2..T)outR(r,t)<=1
+
+!caliza molida
+forall (t in 1..T)
+caliza(t):=sum(r in 1..R, k in 1..Pr(r))AR(r,k,t)
+
+!Produccion total de clinker
+forall (t in 1..T)
+Clinker(t):=sum(h in 1..H, i in 1..Ph(h))AH(h,i,t)
+
+!Producción total moliendas
+forall (t in 1..T)
+Cemento(t):=sum(m in 1..M, j in 1..Pm(m))AM(m,j,t)
+
+!numero de rm operando
+forall (t in 2..T)
+nR(t)=sum(r in 1..R, k in 1..Pr(r))xR(r,k,t)
+
+!numero de hornos operando
+forall (t in 2..T)
+nH(t)=sum(h in 1..H, i in 1..Ph(h))xH(h,i,t)
+
+!numero de moliendas operando
+forall (t in 2..T)
+nM(t)=sum(m in 1..M, j in 1..Pm(m))xM(m,j,t)
+
+!% de capaciad usado R
+forall(r in 1..R, k in 1..Pr(r),t in 2..T)
+poR(r,k,t)= AR(r,k,t)/QR(r,k)
+
+!% de capaciad usado H
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+poH(h,i,t)= AH(h,i,t)/QH(h,i)
+
+!% de capaciad usado M
+forall(m in 1..M, j in 1..Pm(m),t in 2..T)
+poM(m,j,t)= AM(m,j,t)/QM(m,j)
+
+forall (t in 1..T)
+demanda_total(t):=sum(c in 1..C)d(t,c)
+
+
+!permite ver resultados de variables de decisión para cada periodo en gurobi 
+
+forall (t in 2..T)
+EZe1(t)= sum(h in 1..H, i in 1..Ph(h))eH(h,i)*AH(h,i,t)+
+	 sum(m in 1..M, j in 1..Pm(m))eM(m,j)*AM(m,j,t)+
+	 sum(r in 1..R, k in 1..Pr(r))eR(r,k)*AR(r,k,t)
+
+
+forall (t in 2..T)
+EZe2(t)=sum(r in 1..R, h in 1..H)B*dRH(r,h)*fRH(r,h,t)+
+		sum(h in 1..H, m in 1..M)B*dHM(h,m)*fHM(h,m,t)+
+	 	sum(m in 1..M, c in 1..C)B*dMC(m,c)*fMC(m,c,t)+
+	 	sum(y in 1..Y, m in 1..M)B*dYM(y,m)*fYM(y,m,t)
+
+forall (t in 2..T)
+EZe3(t)=sum(h in 1..H, i in 1..Ph(h))fuel_e(h,i)*AH(h,i,t)
+
+forall (t in 2..T)
+EZe4(t)=sum(h in 1..H, i in 1..Ph(h))e2H(h,i)*AH(h,i,t)
+
+forall (t in 2..T)
+EZe5(t)=sum(h in 1..H, i in 1..Ph(h))e3H(h,i)*AH(h,i,t)
+
+
+!__________
+
+forall (t in 2..T)
+CZc1(t)=sum(h in 1..H, i in 1..Ph(h)) rHt(h,i,t)*zH(h,i,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, j in 1..Pm(m))rMt(m,j,t)*zM(m,j,t)/(1+0.02)^(t-2) +
+	sum(r in 1..R, k in 1..Pr(r))rRt(r,k,t)*zR(r,k,t)/(1+0.02)^(t-2)
+
+	 
+forall (t in 2..T)
+CZc2(t)=sum(h in 1..H, i in 1..Ph(h))pHt(h,i,t)*AH(h,i,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, j in 1..Pm(m))pMt(m,j,t)*AM(m,j,t)/(1+0.02)^(t-2) +
+	  sum(r in 1..R, k in 1..Pr(r) )pRt(r,k,t)*AR(r,k,t)/(1+0.02)^(t-2)
+	 
+forall (t in 2..T)	 
+CZc3(t)=sum(r in 1..R, h in 1..H)Ff_t(t)*dRH(r,h)*fRH(r,h,t)/(1+0.02)^(t-2)+
+	sum(h in 1..H, m in 1..M)Ff_t(t)*dHM(h,m)*fHM(h,m,t)/(1+0.02)^(t-2)+
+	 sum(m in 1..M, c in 1..C)Ff_t(t)*dMC(m,c)*fMC(m,c,t)/(1+0.02)^(t-2)+
+	 sum(y in 1..Y, m in 1..M)Ff_t(t)*dYM(y,m)*fYM(y,m,t)/(1+0.02)^(t-2)+
+	sum(h in 1..H, i in 1..Ph(h))fuel_ct(h,i,t)*AH(h,i,t)/(1+0.02)^(t-2)
+
+forall (t in 2..T) 
+CZc4(t)=sum(h in 1..H, i in 1..Ph(h))fijosHt(h,i,t)*xH(h,i,t)/(1+0.02)^(t-2)+
+	sum(m in 1..M, j in 1..Pm(m))fijosMt(m,j,t)*xM(m,j,t)/(1+0.02)^(t-2) +
+ 	sum(r in 1..R, k in 1..Pr(r))fijosMt(r,k,t)*xR(r,k,t)/(1+0.02)^(t-2)
+
+forall (t in 2..T)
+CZc5(t)=sum(h in 1..H) cierreHt(h,t)*outH(h,t)/(1+0.02)^(t-2) + 
+sum(m in 1..M) cierreMt(m,t)*outM(m,t)/(1+0.02)^(t-2) + 
+sum(r in 1..R) cierreRt(r,t)*outR(r,t)/(1+0.02)^(t-2)
+
+
+forall (t in 2..T)	 
+T1(t)=  sum(r in 1..R, h in 1..H)Ff_t(t)*dRH(r,h)*fRH(r,h,t)/(1+0.02)^(t-2)
+forall (t in 2..T)
+T2(t)=	sum(h in 1..H, m in 1..M)Ff_t(t)*dHM(h,m)*fHM(h,m,t)/(1+0.02)^(t-2)
+forall (t in 2..T)
+T3(t)=	 sum(m in 1..M, c in 1..C)Ff_t(t)*dMC(m,c)*fMC(m,c,t)/(1+0.02)^(t-2)
+forall (t in 2..T)
+TY(t)=	 sum(y in 1..Y, m in 1..M)Ff_t(t)*dYM(y,m)*fYM(y,m,t)/(1+0.02)^(t-2)
+forall (t in 2..T)
+TF(t)=	sum(h in 1..H, i in 1..Ph(h))fuel_ct(h,i,t)*AH(h,i,t)/(1+0.02)^(t-2)
+
+
+
+!!_________
+
+
+!variables mayores o iguales a cero
+
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+	xH(h,i,t)>=0
+forall(m in 1..M,j in 1..Pm(m),t in 1..T)	
+	xM(m,j,t)>=0
+forall(r in 1..R, k in 1..Pr(r), t in 2..T)	
+	xR(r,k,t)>=0	
+forall(h in 1..H, t in 2..T)
+	aH(h,t)>=0
+forall(m in 1..M, t in 1..T)	
+	aM(m,t)>=0
+forall(r in 1..R, t in 2..T)	
+	aR(r,t)>=0
+forall(h in 1..H, t in 2..T)
+	outH(h,t)>=0
+forall(m in 1..M, t in 1..T)	
+	outM(m,t)>=0
+forall(r in 1..R, t in 2..T)	
+	outR(r,t)>=0
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+	zH(h,i,t)>=0
+forall(m in 1..M,j in 1..Pm(m),t in 1..T)	
+	zM(m,j,t)>=0
+forall(r in 1..R, k in 1..Pr(r), t in 2..T)		
+	zR(r,k,t)>=0
+forall(h in 1..H, i in 1..Ph(h),t in 2..T)
+	AH(h,i,t)>=0
+forall(m in 1..M,j in 1..Pm(m),t in 1..T)	
+	AM(m,j,t)>=0
+forall(r in 1..R, k in 1..Pr(r), t in 2..T)		
+	AR(r,k,t)>=0
+forall(r in 1..R, h in 1..H, t in 1..T)
+fRH(r,h,t)>=0
+forall(h in 1..H, m in 1..M, t in 1..T)
+fHM(h,m,t)>=0
+forall(m in 1..M, c in 1..C, t in 1..T)
+fMC(m,c,t)>=0
+forall(y in 1..Y, m in 1..M, t in 1..T)
+fYM(y,m,t)>=0
+
+!d3
+
+!EO <= 2.68E+007	
+!EO <= 2.77E+007	
+!EO <= 2.87E+007	
+!EO <= 2.96E+007
+
+!CO <= 3.88E+009	
+!CO <= 4.56E+009	
+!CO <= 5.24E+009	
+!CO <= 5.92E+009
+
+
+!d2
+
+!EO <=3.46E+007	
+!EO <=3.56E+007	
+!EO <=3.67E+007	
+!EO <=3.77E+007
+
+
+!CO <= 4.92E+009	
+!CO <= 5.61E+009	
+!CO <= 6.30E+009	
+!CO <= 6.98E+009
+
+!w:=CO+EO
+!goal:=(CO-4.23E+009) + (EO- 3.36E+007) 
+
+!CO<=2.95E+009
+EO<=2.7E+007
+!CI<=1.1E+009
+
+minimize(CO)
+!loadprob(CO)
+!writeprob('d3CO.mps', "")
+
+writeln("emsiones de co2 totales:", getsol(EO)) 
+writeln("costos de reconversión totales:", getsol(Zc1))
+writeln("costos de producción totales:", getsol(Zc2))
+writeln("costos de transporte totales:", getsol(Zc3))
+writeln("costos fijos totales:", getsol(Zc4))
+writeln("costos de cierre totales", getsol(Zc5))
+writeln("costos totales totales:", getsol(CO))
+forall(t in 1..T)
+writeln("demanda total en ton -periodo ",t," : ", strfmt(getsol(demanda_total(t)),0,2))
+forall(t in 1..T)
+writeln("TOTAL CLINKER ton-periodo ",t," : ", strfmt(getsol(Clinker(t)),0,2))
+forall(t in 1..T)
+writeln("TOTAL CEMENTO ton-periodo ",t," : ", strfmt(getsol(Cemento(t)),0,2))
+(!!)forall(t in 1..T)
+writeln("hornos operando -periodo ",t," : ", strfmt(getsol(nH(t)),0,2))
+forall(t in 1..T)
+writeln("moliendas operando -periodo ",t," : ", strfmt(getsol(nM(t)),0,2))
+forall(t in 1..T)
+writeln("moliendas de mp operando-periodo ",t," : ", strfmt(getsol(nR(t)),0,2))
+forall (t in 1..T)
+writeln("emsiones de co2 por producción para el periodo",t," : ", getsol(EZe1(t)))
+writeln("emsiones de nox por producción  ", getsol(nox))
+writeln("emsiones de sox por producción ", getsol(sox))
+
+forall (t in 2..T)
+writeln("emsiones de co2 por tte para el periodo ",t," : ", getsol(EZe2(t)))
+
+forall (t in 2..T)
+writeln("emsiones de co2 por tte de combustible para el periodo ",t," : ", getsol(EZe3(t)))
+
+forall (t in 2..T)
+writeln("emsiones de nox para el periodo ",t," : ", getsol(EZe4(t)))
+
+forall (t in 2..T)
+writeln("emsiones de sox para el periodo ",t," : ", getsol(EZe5(t)))
+
+forall (t in 2..T)
+writeln("costos de reconversión por periodo ",t," :", getsol(CZc1(t)))
+
+forall (t in 2..T)
+writeln("costos de producción por periodo ",t," :", getsol(CZc2(t)))
+
+forall (t in 2..T)
+writeln("costos de transporte por periodo ",t," :", getsol(CZc3(t)))
+
+forall (t in 2..T)
+writeln("costos fijos por periodo ",t," :", getsol(CZc4(t)))
+
+forall (t in 2..T)
+writeln("costos de cierre por periodo ",t," :", getsol(CZc5(t)))
+
+forall (t in 2..T)
+writeln("costos de tte de fuel por periodo ",t," :", getsol(CZc6(t)))
+
+
+
+!forall (t in 2..T)
+!writeln("costos de tte de fuel por periodo ",t," :", getsol(ttefuel_c(t)))
+
+!forall (t in 2..T)
+!writeln("costos totales por periodo ", t," :", getsol(CO(t)))
+
+forall (r in 1..R, k in 1..Pr(r),t in 2..T )
+if (getsol(AR(r,k,t))>0) then
+writeln("la molienda de mp ", r ," con el proyecto ", k ," en el periodo ",t," :", strfmt(getsol  (AR(r,k,t)),0,2))
+end-if
+forall (h in 1..H, i in 1..Ph(h),t in 2..T)
+if (getsol(AH(h,i,t))>0) then
+writeln("producción en el horno ", h ," con el proyecto ", i ,"  en el periodo ", t ," es: "  , strfmt(getsol  (AH(h,i,t)),0,2))
+end-if
+forall (m in 1..M, j in 1..Pm(m),t in 2..T)
+if (getsol(AM(m,j,t))>0) then
+writeln("producción en la molienda ", m ," con el proyecto ", j ,"  en el periodo ", t ," es: " , strfmt(getsol  (AM(m,j,t)),0,2))
+end-if
+forall (r in 1..R, h in 1..H , t in 2..T)
+if (getsol(fRH(r,h,t))>0) then
+writeln("ton despachadas desde la molienda de mp ", r ," al horno ", h ," ", " en el periodo ", t ," es: ",   strfmt(getsol  (fRH(r,h,t)),0,2))
+end-if
+forall (h in 1..H, m in 1..M,t in 2..T)
+if (getsol(fHM(h,m,t))>0) then
+writeln("ton despachadas desde el horno ", h ," a la molienda ", m ," es: ", " en el periodo ", t ," es: " , strfmt(getsol  (fHM(h,m,t)),0,2))
+end-if
+forall (m in 1..M, c in 1..C,t in 2..T)
+if (getsol(fMC(m,c,t))>0) then
+writeln("ton despachadas desde la molienda ", m ," al cliente ", c ," es: ", " en el periodo ", t ," es: "  , strfmt(getsol  (fMC(m,c,t)),0,2))
+end-if
+
+writeln ("")
+case getprobstat of
+	XPRS_OPT: status:="Optimum found"
+	XPRS_UNF: status:="Unfinished"
+	XPRS_INF: status:="Infeasible"
+	XPRS_UNB: status:="Unbounded"
+	XPRS_OTH: status:="Failed"
+	else status:="???"
+end-case
+ writeln("Problem status: ", status)
+
+CPUTime:=(currenttime-CPUTime)
+writeln(CPUTime/1000)
+contador:=contador+1
+
+
+end-model
