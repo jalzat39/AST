@@ -6,6 +6,7 @@
     <title>AST</title>
     
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/style.css" rel="stylesheet" type="text/css">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/city">Primeros pasos</a>
@@ -49,19 +50,42 @@
                 <p> </p>
                 <h1> </h1>
               <ul id="services">
+                    <div class="box">
                 <li>
                   <h3>Entrada de datos:</h3>
                   <p> Para poder hacer uso del solver Neos necesitaras descargar el siguiente archivo:</p>
                   <a href="/descargar/capital.mos" class="display-6 text-center">Modelo</a>
                   <p> Existen dos opciones para el ingreso de los datos:</p>
+                   
                   <p> 1) Descargando y completando la siguiente plantilla de excel: </p>
                   <a href="/descargar/plantilla.xlsx" class="display-6 text-center">Descargar</a>
                   <p> Al rellenar la plantilla de Excel selecciona la opcion de subir archivo.    </p>
                   <p> 2) Seleccionando la opcion de llenar tabla, la cual te despliega todos los campos que tienes que rellenar para completar la entrada del modelo.</p>
                 </li>
+                </div>
+               
+                  <div class="box">
+                      <li>
+                  <h3>Ejecutar el Modelo:</h3>
+                  <p> Para ejecutar el modelo en el solver tendrás que seguir los siguientes pasos: </p>
+                  <p> 1) Necesitaras el Modelo (archivo de referencia .mos) y necesitaras los parametros de entrada (archivo de referencia .dat) </p>
+                  <p> 2) Al presionar el boton ir al solver, te será redirigido a la pagina de Neos (el cual es un solver lineal) </p>
+                  <p> 3) En el solver Neos debes ingresar el modelo en la parte de Mosel file y los parametros de entrada en la parte de data.</p>
+                  <p> 4) Ingresas tu correo electronico y los demas campos los dejas por default, aproximadamente en 10 minutos te llegará un correo con la salida del modelo</p>
+                  <p> 5) La salida que te llega al correo (archivo de extension .txt), ingresala en la seccion de salida de nuestra pagina</p>
+                </div>
+                </li>
               </ul>
-            </article>
-   
+             
+            </article>  
+        </br>
+  
+    </br>
+</br>
+</br>
+</br>
+</br>
+            <img src="../public/images/orc.PNG" width="430" height="430"align ="right" >
                 
     <div id="elemento" class="row" style="display: none;">
         <div class="col-md-4 offset-md-4">
@@ -311,7 +335,7 @@
     <form class="form-horizontal col-md-4 col-md-offset-4" >
         <input type="button" class="btn btn-primary mt-4" value="Llenar Tabla" onclick="ocultar()">
         <input type="button" class="btn btn-primary mt-4" value="Subir Archivo" onclick="mostrar()">
-        <a href="https://neos-server.org/neos/solvers/nco:FICO-Xpress/MOSEL.html" class="display-6 text-center btn btn-primary mt-4" target="_blank">Ir a Neos</a>
+        <a href="https://neos-server.org/neos/solvers/nco:FICO-Xpress/MOSEL.html" class="display-6 text-center btn btn-primary mt-4" target="_blank">Ir al Solver</a>
     </form>
     <script>
         function ocultar() {
