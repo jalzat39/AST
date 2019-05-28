@@ -59,10 +59,12 @@ router.get('/upload', isAuthenticated, async (req, res, next) => {
     const horno = await Horno.find();
     const molienda = await Molienda.find();
     const hm = await HM.find();
+    const entrada = await Entrada.find();
     res.render('uploading', {
         horno,
         molienda,
-        hm
+        hm,
+        entrada
     });
 });
 

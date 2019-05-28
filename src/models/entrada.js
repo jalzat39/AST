@@ -5,12 +5,13 @@ const { Schema } = mongoose;
 const entradaSchema = new Schema({
     emisiones: String,
     costoTransporte: String,
-    capital: String,
-    red: String,
+    clientes: String,
     hornos: String,
     moliendas: String,
-    clientes: String,
-    planeacion: String
+    r: String,
+    y: String,
+    t: String,
+    tax: String
 });
 
 module.exports = mongoose.model('entrada', entradaSchema);

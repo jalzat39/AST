@@ -87,13 +87,11 @@
             </div>
             <div class="form-group">
                 <input type="costoTransporte" name="costoTransporte" placeholder="Costo del Transporte" class="form-control">
-            </div>   
-            <div class="form-group">
-                <input type="capital" name="capital" placeholder="Capital de la Cadena de Suministro" class="form-control">
             </div>
             <div class="form-group">
-                <input type="red" name="red" placeholder="Estructura de la Red" class="form-control">
-            </div>      
+                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
+            </div>
+            <p>Estructura de la red</p>
             <div class="form-group">
                 <input type="hornos" name="hornos" placeholder="Numero de Hornos" class="form-control">
             </div>
@@ -101,16 +99,63 @@
                 <input type="moliendas" name="moliendas" placeholder="Numero de Moliendas" class="form-control">
             </div>
             <div class="form-group">
-                <input type="clientes" name="clientes" placeholder="Numero de Clientes" class="form-control">
+                <input type="r" name="r" placeholder="R" class="form-control">
             </div>
             <div class="form-group">
-                <input type="planeacion" name="planeacion" placeholder="Numero de Periodos de Planeacion" class="form-control">
+                <input type="y" name="y" placeholder="Y" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="t" name="t" placeholder="T" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="tax" name="tax" placeholder="Tax" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary btn-block mt-4">
                     Guardar Planta
             </button>
         </form>
     </br>
+    <h1>Top de las emisiones</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/agregar" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="emisiones" placeholder="Emisiones" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Agregar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Emisiones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for (var i = 0; i < emisiones.length; i++){ %>
+                                <tr>
+                                    <td><%= i + 1  %></td>
+                                    <td><%= emisiones[i].emisiones %></td>
+                                    <td>
+                                        <a href="/delete/<%= emisiones[i]._id %>" class="btn btn-danger btn-block">Borrar</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+   </div>
+
             <h1>Proyectos de reconversión para cada horno en cada planta</h1>
                <div class="container">
                     <div class="row">
