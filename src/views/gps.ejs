@@ -116,7 +116,12 @@
 
         <h3> Selecciona tus localizaciones  </h3>
 
-    <style class="mb-4">
+   
+    
+               </div>
+</head>
+
+<style class="mb-4">
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
@@ -128,27 +133,47 @@
                 margin: 0;
                 padding: 0;
             }
+        #floating-panel {
+        position: absolute;
+        top: 570px;
+        left: 15%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
     </style>
     
-               </div>
-</head>
-
-<body>
-    
     <body>
+            
         <div id="map" class="mb-5"></div>
+        <div id="floating-panel">
+                <b>Opciones: </b>
+    
+                    <input onclick=" deleteMarkers();" type=button value="Eliminar Marcadores">
+                </select>
+                </div>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxBulUWENWsCHEl4ATFevpL7j85sjAZHY&callback=initMap"></script>
         <script>
                 // In the following example, markers appear when the user clicks on the map.
                 // Each marker is labeled with a single alphabetical character.
-                var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                var labels = 'ABC';
                 var labelIndex = 0;
+                var markers = [];
+
           
                 function initialize() {
-
                     
-                    
+                  var ltlng = [];  
                   var bangalore = { lat: 6.199478744828727, lng: -75.57867842235147 };
+                  var ejemplo1 = { lat:6.221194463136657, lng:  -75.64339476146279 };
+                  var ejemplo2 = { lat: 6.199478744828727, lng: -75.57867842235147 };
+                  var ejemplo3 = { lat: 6.199478744828727, lng: -75.57867842235147 };
+                  var ejemplo4 = { lat: 6.199478744828727, lng: -75.57867842235147 };
                   var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 12,
                     center: bangalore
@@ -158,11 +183,12 @@
                   google.maps.event.addListener(map, 'click', function(event) {
                     addMarker(event.latLng, map);
                   });
+
           
                   // Add a marker at the center of the map.
+                  
                   addMarker(bangalore, map);
                 }
-          
                 // Adds a marker to the map.
                 function addMarker(location, map) {
                   // Add the marker at the clicked location, and add the next-available label
@@ -170,33 +196,42 @@
                   var marker = new google.maps.Marker({
                     position: location,
                     label: labels[labelIndex++ % labels.length],
-                    map: map
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+                    draggable: true,
                   });
+                  
+                  markers.push(marker);
+                  var infowindow = new google.maps.InfoWindow({
+                  content: 'Latitude: ' + location.lat() +
+                   '<br>Longitude: ' + location.lng()
+                  });
+                  infowindow.open(map,marker);
                 }
+            
+                function setMapOnAll(map) {
+                for (var i = 0; i < markers.length; i++) {
+                  markers[i].setMap(map);
+                  }
+                   } 
+                function deleteMarkers() {
+                  clearMarkers();
+                 markers = [];
+                  }
+                  function clearMarkers() {
+                   setMapOnAll(null);
+                  }
+               
+                google.maps.event.addListener(map, 'click', function(event) {
+                placeMarker(map, event.latLng);
+});
+
+
           
                 google.maps.event.addDomListener(window, 'load', initialize);
+
               </script>
 
-            
-            <hr style="color: #0056b2;" />   
-        <form action="/save" method="POST">
-            <div class="container">
-                <div class="col-md-6">
-                    <body>
-                        <h3>Latitud</h3>
-                        <p name="latitud" id="latitud"></p>
-                    </body>
-
-                    <body>
-                        <h3>Longitud</h3>
-                        <p name="longitud" id="longitud"></p>
-                    </body>
-                    <button type="submit" class="btn btn-primary btn-block mt-4">
-                        Actualizar
-                    </button>
-                </div>
-            </div>
-        </form>
         
     </body>
 </html>
