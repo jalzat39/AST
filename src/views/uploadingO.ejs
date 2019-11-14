@@ -50,7 +50,10 @@
                 <input type="file" id="fileinput"/>
                 <output id="list"></output>
                 <form action='/upl' method="POST" enctype="multipart/form-data">
-                    <input type="button" value="Analizar" class="btn btn-primary btn-block mt-4" onclick="charts()">
+                    <input type="file" id="fileinput"/>
+                    <output id="list"></output>
+                    <form action='/upl' method="POST" enctype="multipart/form-data">
+                    <input type="button" value="Analizar" class="btn btn-primary btn-block mt-4" onclick="analize()">
                 </form>
                 </div>
             </div>
@@ -75,30 +78,358 @@
             <canvas id="costosT" width="700" height="400" margin="0"></canvas>
         </div>
         <div>
-            <canvas id="produccionH" width="700" height="400" margin="0"></canvas>
+            <canvas id="costosF" width="700" height="400" margin="0"></canvas>
         </div>
         <div>
-            <canvas id="produccionM" width="700" height="400" margin="0"></canvas>
+            <canvas id="costosC" width="700" height="400" margin="0"></canvas>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
         <script type="text/javascript">
+        var lines;
             function leerUnArchivo(evt) {
                 var f = evt.target.files[0];
 
                 if (f){
-                    var lector = new FileReader();
-                    lector.onload = function(e){
-                        var contenidos = e.target.result;
-                        alert("Tenemos el archivo\n" + 
-                        "nombre: " + f.name + "\n" +
-                        "tipo: " + f.type + "\n" +
-                        contenidos.substr(0, contenidos.indexOf("\n"))); 
+                    if(f.name.includes(".txt")){
+                        var lector = new FileReader();
+                        lector.onload = function(e){
+                            var contenidos = e.target.result;
+                            lines = contenidos.split("\n");
+                        }
+                        lector.readAsText(f);
+                    } else {
+                        alert("Archivo inválido.")
                     }
-                    lector.readAsText(f);
+                   
                 } else {
                     alert("Error al subir el archivo");
                 }
             }
             document.getElementById('fileinput').addEventListener('change', leerUnArchivo, false);
+
+        function analize() {
+            let co2 = document.getElementById('emisionesCO2').getContext('2d');
+            let nox = document.getElementById('emisionesNOX').getContext('2d');
+            let sox = document.getElementById('emisionesSOX').getContext('2d');
+            let costR = document.getElementById('costosR').getContext('2d');
+            let costP = document.getElementById('costosP').getContext('2d');
+            let costT = document.getElementById('costosT').getContext('2d');
+            let costF = document.getElementById('costosF').getContext('2d');
+            let costC = document.getElementById('costosC').getContext('2d');
+            var i;
+            var auxPeriodo = 0;
+            var cantidadCO2 = new Array();
+            var cantidadNOX = new Array();
+            var cantidadSOX = new Array();
+            var cantidadCostR = new Array();
+            var cantidadCostP = new Array();
+            var cantidadCostT = new Array();
+            var cantidadCostF = new Array();
+            var cantidadCostC = new Array();
+            var periodo = new Array();
+            var valor;
+
+            for(i = 0; i < lines.length; i++){
+
+                if(lines[i].includes("emsiones de co2 por producci")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCO2.push(parseFloat(valor[1]));
+                        periodo.push("Periodo " + auxPeriodo.toString());
+                        auxPeriodo++;
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if(lines[i].includes("emsiones de nox")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadNOX.push(parseFloat(valor[1]));
+                        console.log(".");
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("emsiones de sox")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadSOX.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("costos de reconversi")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCostR.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("costos de producci")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCostP.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("costos de transporte por periodo")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCostT.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("costos fijos por periodo")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCostF.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }else if (lines[i].includes("costos de cierre por periodo")){
+                    try {
+                        let valor = lines[i].split(":");
+                        cantidadCostC.push(parseFloat(valor[1]));
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }
+            }
+
+            //Construcción de las gráficas.
+            let chartEmisionesCO2 = new Chart(co2, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'CO2',
+                                data: cantidadCO2,
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de CO2 en cada periodo',
+                                fontSize:25
+                            },
+                            legend:{
+                                display:false
+                                
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartEmisionesNOX = new Chart(nox, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'NOX',
+                                data: cantidadNOX,
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de NOX en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartEmisionesSOX = new Chart(sox, {
+                         type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'SOX',
+                                data:cantidadSOX,
+                                backgroundColor:'#777',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Cantidad de emisiones de SOX en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosR = new Chart(costR, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'Dólares',
+                                data:cantidadCostR,
+                                backgroundColor:'#32CD32',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de reconversión en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosP = new Chart(costP, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'Dólares',
+                                data:cantidadCostP,
+                                backgroundColor:'#32CD32',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de producción en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostosT = new Chart(costT, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'Dólares',
+                                data:cantidadCostT,
+                                backgroundColor:'#32CD32',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de transporte en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostF = new Chart(costF, {
+                        type: 'bar',
+                        data:{
+                            labels: periodo,
+                            datasets:[{
+                                label:'Dólares',
+                                data:cantidadCostF,
+                                backgroundColor:'#32CD32',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos fijos en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+                    let chartCostC = new Chart(costC, {
+                        type: 'bar',
+                        data:{
+                            labels:periodo,
+                            datasets:[{
+                                label:'Dólares',
+                                data:cantidadCostC,
+                                backgroundColor:'#32CD32',
+                                hoverBorderWidth:1,
+                                hoverBorderColor:'black',
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                text:'Costos de cierre en cada periodo',
+                                fontSize:25
+                            },
+                            layout:{
+                                padding:{
+                                    left:300,
+                                    right:0,
+                                    bottom:0,
+                                    top:0
+                                }
+                            },
+                            responsive:false
+                        }
+                    });
+        }
         </script>
 </html>
